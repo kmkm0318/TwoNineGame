@@ -18,10 +18,10 @@ public class GameManager : Singleton<GameManager>
     #region 초기화
     private void Start()
     {
-        //매니저 초기화
+        // 매니저 초기화
         InitManagers();
 
-        //게임 시작
+        // 게임 시작
         StartGame();
     }
 
@@ -34,7 +34,7 @@ public class GameManager : Singleton<GameManager>
     }
     #endregion
 
-    #region 게임
+    #region 게임 처리
     public void StartGame()
     {
         // 숫자 생성
@@ -47,31 +47,30 @@ public class GameManager : Singleton<GameManager>
     public void EndGame()
     {
         // TODO: 게임 종료 및 결과 처리
+        $"게임 종료. 최종 라운드: {_roundManager.CurrentRound}".Log();
     }
     #endregion
 
-    #region 이벤트 핸들러
-    public void HandleOnNumberSelected(int number)
+    #region 라운드 처리
+    public void OnRoundCleared()
     {
-        if (_numberManager.IsNumberCorrect(number))
-        {
-            // 목표 배수 증가
-            _numberManager.IncreaseTargetMultiple();
+        // 현재 라운드 종료
+        _roundManager.EndCurrentRound();
 
-            // 새로운 숫자 생성
-            _numberManager.GenerateNumbers();
+        // 목표 배수 증가
+        _numberManager.IncreaseTargetMultiple();
 
-            // 현재 라운드 종료
-            _roundManager.EndCurrentRound();
+        // 새로운 숫자 생성
+        _numberManager.GenerateNumbers();
 
-            // 다음 라운드 시작
-            _roundManager.StartNextRound();
-        }
-        else
-        {
-            // 잘못된 숫자 선택 처리
-            EndGame();
-        }
+        // 다음 라운드 시작
+        _roundManager.StartNextRound();
+    }
+
+    public void OnRoundFailed()
+    {
+        // 게임 종료
+        EndGame();
     }
     #endregion
 }
