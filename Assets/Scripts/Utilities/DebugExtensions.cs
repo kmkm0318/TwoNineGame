@@ -1,47 +1,45 @@
+using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 /// <summary>
 /// 디버그 관련 확장 메서드를 제공하는 유틸리티 클래스
+/// [Conditional("UNITY_EDITOR")]를 통해 에디터에서만 로그가 출력되도록 함
+/// [HideInCallstack]을 통해 로그를 클릭했을 때 호출한 위치로 이동하도록 함
 /// </summary>
 public static class DebugExtensions
 {
     #region 상수
-    private static readonly bool ENABLE_DEBUG = true;
+    private const string DEBUG_SYMBOL = "UNITY_EDITOR";
     #endregion
 
     /// <summary>
     /// 디버그 로그 출력
     /// </summary>
-    public static void Log(this string message)
+    [Conditional(DEBUG_SYMBOL)]
+    [HideInCallstack]
+    public static void Log(this object message, Object context = null)
     {
-        // 디버그가 활성화되지 않은 경우 패스
-        if (!ENABLE_DEBUG) return;
-
-        // 로그 출력
-        Debug.Log(message);
+        Debug.Log(message, context);
     }
 
     /// <summary>
     /// 경고 로그 출력
     /// </summary>
-    public static void LogWarning(this string message)
+    [Conditional(DEBUG_SYMBOL)]
+    [HideInCallstack]
+    public static void LogWarning(this object message, Object context = null)
     {
-        // 디버그가 활성화되지 않은 경우 패스
-        if (!ENABLE_DEBUG) return;
-
-        // 경고 로그 출력
-        Debug.LogWarning(message);
+        Debug.LogWarning(message, context);
     }
 
     /// <summary>
     /// 에러 로그 출력
     /// </summary>
-    public static void LogError(this string message)
+    [Conditional(DEBUG_SYMBOL)]
+    [HideInCallstack]
+    public static void LogError(this object message, Object context = null)
     {
-        // 디버그가 활성화되지 않은 경우 패스
-        if (!ENABLE_DEBUG) return;
-
-        // 에러 로그 출력
-        Debug.LogError(message);
+        Debug.LogError(message, context);
     }
 }
