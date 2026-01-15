@@ -11,10 +11,6 @@ public class RoundManager : MonoBehaviour
     [SerializeField] private float _roundTimeMax = 9f;
     [SerializeField] private float _roundTimeDecreaseAmount = 0.29f;
 
-    #region 레퍼런스
-    private GameManager _gameManager;
-    #endregion
-
     #region 라운드 변수
     public bool IsRoundActive { get; set; } = false;
     public int CurrentRound { get; private set; } = 0;
@@ -29,10 +25,11 @@ public class RoundManager : MonoBehaviour
     #endregion
 
     #region 초기화
-    public void Init(GameManager gameManager)
+    public void Init()
     {
-        // 게임 매니저 할당
-        _gameManager = gameManager;
+        IsRoundActive = false;
+        CurrentRound = 0;
+        CurrentRoundTime = 0f;
     }
     #endregion
 
@@ -80,8 +77,11 @@ public class RoundManager : MonoBehaviour
 
     public void RoundClear()
     {
-        // 라운드 종료
-        EndCurrentRound();
+        // 라운드가 활성화되어 있지 않으면 반환
+        if (!IsRoundActive) return;
+
+        // 라운드 비활성화
+        IsRoundActive = false;
 
         // 라운드 클리어 이벤트 호출
         OnRoundCleared?.Invoke();
@@ -89,17 +89,14 @@ public class RoundManager : MonoBehaviour
 
     public void RoundFail()
     {
-        // 라운드 종료
-        EndCurrentRound();
+        // 라운드가 활성화되어 있지 않으면 반환
+        if (!IsRoundActive) return;
+
+        // 라운드 비활성화
+        IsRoundActive = false;
 
         // 라운드 실패 이벤트 호출
         OnRoundFailed?.Invoke();
-    }
-
-    public void EndCurrentRound()
-    {
-        // 라운드 비활성화
-        IsRoundActive = false;
     }
     #endregion
 }

@@ -9,12 +9,12 @@ public interface IState
     void OnEnter();
 
     /// <summary>
-    /// 업데이트 시 호출
-    /// </summary>
-    void OnUpdate();
-
-    /// <summary>
     /// 상태 종료 시 호출
     /// </summary>
     void OnExit();
+
+    /// <summary>
+    /// 업데이트 시 호출
+    /// </summary>
+    void OnUpdate();
 }

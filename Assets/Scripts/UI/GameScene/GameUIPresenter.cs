@@ -9,8 +9,10 @@ public class GameUIPresenter : MonoBehaviour
     [SerializeField] private RoundUI _roundUI;
     [SerializeField] private NumberUI _numberUI;
 
+    #region 레퍼런스
     private RoundManager _roundManager;
     private NumberManager _numberManager;
+    #endregion
 
     private void OnDestroy()
     {
@@ -52,7 +54,7 @@ public class GameUIPresenter : MonoBehaviour
         _numberManager.OnCurrentTargetMultipleChanged += _numberUI.UpdateTargetMultipleText;
         _numberManager.OnNumbersChanged += _numberUI.UpdateNumberButtons;
 
-        _numberUI.OnNumberButtonClicked += HandleOnNumberButtonClicked;
+        _numberUI.OnNumberButtonClicked += _numberManager.HandleOnNumberButtonClicked;
     }
 
     private void UnregisterEvents()
@@ -63,26 +65,7 @@ public class GameUIPresenter : MonoBehaviour
         _numberManager.OnCurrentTargetMultipleChanged -= _numberUI.UpdateTargetMultipleText;
         _numberManager.OnNumbersChanged -= _numberUI.UpdateNumberButtons;
 
-        _numberUI.OnNumberButtonClicked -= HandleOnNumberButtonClicked;
-    }
-    #endregion
-
-    #region 이벤트 핸들러
-    private void HandleOnNumberButtonClicked(int number)
-    {
-        // 숫자 정답 여부 확인
-        bool success = _numberManager.IsNumberCorrect(number);
-
-        if (success)
-        {
-            // 라운드 성공
-            _roundManager.RoundClear();
-        }
-        else
-        {
-            // 라운드 실패
-            _roundManager.RoundFail();
-        }
+        _numberUI.OnNumberButtonClicked -= _numberManager.HandleOnNumberButtonClicked;
     }
     #endregion
 }

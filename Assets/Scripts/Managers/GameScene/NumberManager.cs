@@ -8,64 +8,73 @@ using UnityEngine;
 public class NumberManager : MonoBehaviour
 {
     #region 상수
-    private const int MIN_TARGET_MULTIPLE = 2;
-    private const int MAX_TARGET_MULTIPLE = 9;
-    private const int NUMBER_COUNT = 9;
-    private const int CORRECT_NUMBER_COUNT = 2;
-    private const int MIN_NUMBER_VALUE = 2;
-    private const int MAX_NUMBER_VALUE = 99;
+    // 초기 목표 배수. 0으로 설정하여 첫 호출 시 최소값이 되도록 함
+    private const int INITIAL_TARGET_MULTIPLE = 0;
     #endregion
 
-    #region 레퍼런스
-    private GameManager _gameManager;
+    #region 에디터 변수
+    [Header("Number Settings")]
+    [SerializeField] private int _minTargetMultiple = 2;
+    [SerializeField] private int _maxTargetMultiple = 9;
+    [SerializeField] private int _numberCount = 9;
+    [SerializeField] private int _correctNumberCount = 2;
+    [SerializeField] private int _minNumberValue = 2;
+    [SerializeField] private int _maxNumberValue = 99;
     #endregion
 
     #region 숫자 관련 변수
-    public int CurrentTargetMultiple { get; private set; } = MIN_TARGET_MULTIPLE;
-    private readonly Dictionary<int, List<int>> _correctNumbers = new();
-    private readonly Dictionary<int, List<int>> _wrongNumbers = new();
+    public int CurrentTargetMultiple { get; private set; } = INITIAL_TARGET_MULTIPLE;
+    private readonly Dictionary<int, List<int>> _correctNumberLists = new();
+    private readonly Dictionary<int, List<int>> _wrongNumberLists = new();
     public List<int> Numbers { get; private set; } = new();
     #endregion
 
     #region 이벤트
     public event Action<int> OnCurrentTargetMultipleChanged;
     public event Action<List<int>> OnNumbersChanged;
+    public event Action OnCorrectNumberSelected;
+    public event Action OnWrongNumberSelected;
     #endregion
 
-    #region 초기화
-    public void Init(GameManager gameManager)
+    private void Awake()
     {
-        // 레퍼런스 설정
-        _gameManager = gameManager;
-
-        // 올바른 숫자 및 잘못된 숫자 리스트 초기화
-        InitCorrectWrongNumbers();
+        // 올바른 숫자 및 잘못된 숫자 리스트 딕셔너리 생성
+        SetupNumberLists();
     }
 
-    private void InitCorrectWrongNumbers()
+    #region 숫자 리스트 딕셔너리 생성
+    private void SetupNumberLists()
     {
         // 각 배수에 대해 실행
-        for (int multiple = MIN_TARGET_MULTIPLE; multiple <= MAX_TARGET_MULTIPLE; multiple++)
+        for (int multiple = _minTargetMultiple; multiple <= _maxTargetMultiple; multiple++)
         {
             // 리스트 초기화
-            _correctNumbers[multiple] = new List<int>();
-            _wrongNumbers[multiple] = new List<int>();
+            _correctNumberLists[multiple] = new();
+            _wrongNumberLists[multiple] = new();
 
             // 숫자 범위 내에서 배수 판별
-            for (int number = MIN_NUMBER_VALUE; number <= MAX_NUMBER_VALUE; number++)
+            for (int number = _minNumberValue; number <= _maxNumberValue; number++)
             {
                 if (number % multiple == 0)
                 {
                     // 배수인 경우 올바른 숫자 리스트에 추가
-                    _correctNumbers[multiple].Add(number);
+                    _correctNumberLists[multiple].Add(number);
                 }
                 else
                 {
                     // 배수가 아닌 경우 잘못된 숫자 리스트에 추가
-                    _wrongNumbers[multiple].Add(number);
+                    _wrongNumberLists[multiple].Add(number);
                 }
             }
         }
+    }
+    #endregion
+
+    #region 초기화
+    public void Init()
+    {
+        // 초기 목표 배수 설정
+        CurrentTargetMultiple = INITIAL_TARGET_MULTIPLE;
     }
     #endregion
 
@@ -76,9 +85,9 @@ public class NumberManager : MonoBehaviour
         var newTargetMultiple = CurrentTargetMultiple + 1;
 
         // 범위 밖의 값이면 최소값으로 초기화
-        if (newTargetMultiple < MIN_TARGET_MULTIPLE || newTargetMultiple > MAX_TARGET_MULTIPLE)
+        if (newTargetMultiple < _minTargetMultiple || newTargetMultiple > _maxTargetMultiple)
         {
-            newTargetMultiple = MIN_TARGET_MULTIPLE;
+            newTargetMultiple = _minTargetMultiple;
         }
 
         // 목표 배수 업데이트
@@ -94,27 +103,27 @@ public class NumberManager : MonoBehaviour
         Numbers.Clear();
 
         // 올바른 숫자 리스트 가져오기
-        if (!_correctNumbers.TryGetValue(CurrentTargetMultiple, out var correctList))
+        if (!_correctNumberLists.TryGetValue(CurrentTargetMultiple, out var correctList))
         {
             $"올바른 숫자 리스트를 찾을 수 없습니다. 배수: {CurrentTargetMultiple}".LogError();
             return;
         }
 
         // 올바른 숫자들 중에서 무작위로 선택
-        var correctNumber = correctList.GetRandomElements(CORRECT_NUMBER_COUNT);
+        var correctNumber = correctList.GetRandomElements(_correctNumberCount);
 
         // 올바른 숫자들 추가
         Numbers.AddRange(correctNumber);
 
         // 잘못된 숫자 리스트 가져오기
-        if (!_wrongNumbers.TryGetValue(CurrentTargetMultiple, out var wrongList))
+        if (!_wrongNumberLists.TryGetValue(CurrentTargetMultiple, out var wrongList))
         {
             $"잘못된 숫자 리스트를 찾을 수 없습니다. 배수: {CurrentTargetMultiple}".LogError();
             return;
         }
 
         // 필요한 잘못된 숫자 개수 계산
-        int wrongNumberCount = NUMBER_COUNT - CORRECT_NUMBER_COUNT;
+        int wrongNumberCount = _numberCount - _correctNumberCount;
 
         // 잘못된 숫자들 중에서 무작위로 선택
         var wrongNumbers = wrongList.GetRandomElements(wrongNumberCount);
@@ -123,9 +132,9 @@ public class NumberManager : MonoBehaviour
         Numbers.AddRange(wrongNumbers);
 
         // 생성된 숫자 개수 검증
-        if (Numbers.Count != NUMBER_COUNT)
+        if (Numbers.Count != _numberCount)
         {
-            "생성된 숫자 개수가 올바르지 않습니다.".LogError();
+            $"생성된 숫자 개수가 올바르지 않습니다. 현재 개수: {Numbers.Count}".LogError();
             return;
         }
 
@@ -137,11 +146,20 @@ public class NumberManager : MonoBehaviour
     }
     #endregion
 
-    #region 숫자 테스트
-    public bool IsNumberCorrect(int number)
+    #region 이벤트 핸들러
+    public void HandleOnNumberButtonClicked(int number)
     {
-        // 숫자가 현재 목표 배수의 배수인지 판별
-        return number % CurrentTargetMultiple == 0;
+        // 숫자가 올바른지 판별
+        if (number % CurrentTargetMultiple == 0)
+        {
+            // 올바른 숫자 선택 이벤트 호출
+            OnCorrectNumberSelected?.Invoke();
+        }
+        else
+        {
+            // 잘못된 숫자 선택 이벤트 호출
+            OnWrongNumberSelected?.Invoke();
+        }
     }
     #endregion
 }

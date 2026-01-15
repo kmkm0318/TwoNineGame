@@ -11,5 +11,5 @@ public class RoundUI : MonoBehaviour
     [SerializeField] private TMP_Text _roundTimeText;
 
     public void UpdateRoundText(int round) => _roundText.text = $"{round}";
-    public void UpdateRoundTimeText(float time) => _roundTimeText.text = $"{time:F1}s";
+    public void UpdateRoundTimeText(float time) => _roundTimeText.text = $"{time:F1}";
 }
