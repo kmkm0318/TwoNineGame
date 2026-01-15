@@ -7,9 +7,9 @@ using UnityEngine;
 public class RoundManager : MonoBehaviour
 {
     [Header("Round Settings")]
-    [SerializeField] private float _baseRoundTime = 5f;
-    [SerializeField] private float _roundTimeDecreaseRate = 0.9f;
-    [SerializeField] private float _minRoundTime = 1f;
+    [SerializeField] private float _roundTimeMin = 2f;
+    [SerializeField] private float _roundTimeMax = 9f;
+    [SerializeField] private float _roundTimeDecreaseAmount = 0.29f;
 
     #region 레퍼런스
     private GameManager _gameManager;
@@ -22,9 +22,10 @@ public class RoundManager : MonoBehaviour
     #endregion
 
     #region 이벤트
-    public Action<bool> OnIsRoundActiveChanged;
-    public Action<int> OnCurrentRoundChanged;
-    public Action<float> OnCurrentRoundTimeChanged;
+    public event Action<int> OnCurrentRoundChanged;
+    public event Action<float> OnCurrentRoundTimeChanged;
+    public event Action OnRoundCleared;
+    public event Action OnRoundFailed;
     #endregion
 
     #region 초기화
@@ -47,13 +48,13 @@ public class RoundManager : MonoBehaviour
         if (!IsRoundActive) return;
 
         // 라운드 시간 감소
-        CurrentRoundTime -= Time.deltaTime;
+        CurrentRoundTime = Mathf.Max(CurrentRoundTime - Time.deltaTime, 0f);
 
         // 라운드 시간 변경 이벤트 호출
         OnCurrentRoundTimeChanged?.Invoke(CurrentRoundTime);
 
-        // 라운드 시간이 0 이하가 되면 라운드 종료 처리
-        if (CurrentRoundTime <= 0f) EndCurrentRound();
+        // 라운드 시간이 0 이하가 되면 라운드 실패 처리
+        if (CurrentRoundTime <= 0f) RoundFail();
     }
 
     public void StartNextRound()
@@ -65,28 +66,40 @@ public class RoundManager : MonoBehaviour
         OnCurrentRoundChanged?.Invoke(CurrentRound);
 
         // 라운드 시간 계산
-        float newRoundTime = _baseRoundTime * Mathf.Pow(_roundTimeDecreaseRate, CurrentRound - 1);
+        float newRoundTime = _roundTimeMax - _roundTimeDecreaseAmount * (CurrentRound - 1);
 
         // 최소 라운드 시간 적용
-        CurrentRoundTime = Mathf.Max(newRoundTime, _minRoundTime);
+        CurrentRoundTime = Mathf.Max(newRoundTime, _roundTimeMin);
 
         // 라운드 시간 변경 이벤트 호출
         OnCurrentRoundTimeChanged?.Invoke(CurrentRoundTime);
 
         // 라운드 활성화
         IsRoundActive = true;
+    }
 
-        // 라운드 시작 이벤트 호출
-        OnIsRoundActiveChanged?.Invoke(IsRoundActive);
+    public void RoundClear()
+    {
+        // 라운드 종료
+        EndCurrentRound();
+
+        // 라운드 클리어 이벤트 호출
+        OnRoundCleared?.Invoke();
+    }
+
+    public void RoundFail()
+    {
+        // 라운드 종료
+        EndCurrentRound();
+
+        // 라운드 실패 이벤트 호출
+        OnRoundFailed?.Invoke();
     }
 
     public void EndCurrentRound()
     {
         // 라운드 비활성화
         IsRoundActive = false;
-
-        // 라운드 종료 이벤트 호출
-        OnIsRoundActiveChanged?.Invoke(IsRoundActive);
     }
     #endregion
 }

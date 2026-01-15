@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -15,14 +16,29 @@ public class GameManager : Singleton<GameManager>
     public NumberManager NumberManager => _numberManager;
     #endregion
 
-    #region 초기화
     private void Start()
+    {
+        // 초기화
+        Init();
+
+        // 게임 시작
+        StartGame();
+    }
+
+    private void OnDestroy()
+    {
+        // 이벤트 구독 해제
+        UnregisterEvents();
+    }
+
+    #region 초기화
+    private void Init()
     {
         // 매니저 초기화
         InitManagers();
 
-        // 게임 시작
-        StartGame();
+        // 이벤트 구독
+        RegisterEvents();
     }
 
     private void InitManagers()
@@ -31,6 +47,40 @@ public class GameManager : Singleton<GameManager>
         _gameUIManager.Init(this);
         _roundManager.Init(this);
         _numberManager.Init(this);
+    }
+    #endregion
+
+    #region 이벤트 구독, 해제
+    private void RegisterEvents()
+    {
+        _roundManager.OnRoundCleared += HandleOnRoundCleared;
+        _roundManager.OnRoundFailed += HandleOnRoundFailed;
+    }
+
+    private void UnregisterEvents()
+    {
+        _roundManager.OnRoundCleared -= HandleOnRoundCleared;
+        _roundManager.OnRoundFailed -= HandleOnRoundFailed;
+    }
+    #endregion
+
+    #region 이벤트 핸들러
+    public void HandleOnRoundCleared()
+    {
+        // 목표 배수 증가
+        _numberManager.IncreaseTargetMultiple();
+
+        // 새로운 숫자 생성
+        _numberManager.GenerateNumbers();
+
+        // 다음 라운드 시작
+        _roundManager.StartNextRound();
+    }
+
+    public void HandleOnRoundFailed()
+    {
+        // 게임 종료
+        EndGame();
     }
     #endregion
 
@@ -48,29 +98,6 @@ public class GameManager : Singleton<GameManager>
     {
         // TODO: 게임 종료 및 결과 처리
         $"게임 종료. 최종 라운드: {_roundManager.CurrentRound}".Log();
-    }
-    #endregion
-
-    #region 라운드 처리
-    public void OnRoundCleared()
-    {
-        // 현재 라운드 종료
-        _roundManager.EndCurrentRound();
-
-        // 목표 배수 증가
-        _numberManager.IncreaseTargetMultiple();
-
-        // 새로운 숫자 생성
-        _numberManager.GenerateNumbers();
-
-        // 다음 라운드 시작
-        _roundManager.StartNextRound();
-    }
-
-    public void OnRoundFailed()
-    {
-        // 게임 종료
-        EndGame();
     }
     #endregion
 }

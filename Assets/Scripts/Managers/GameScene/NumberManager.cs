@@ -8,12 +8,11 @@ using UnityEngine;
 public class NumberManager : MonoBehaviour
 {
     #region 상수
-    private const int INITIAL_TARGET_MULTIPLE = 2;
     private const int MIN_TARGET_MULTIPLE = 2;
     private const int MAX_TARGET_MULTIPLE = 9;
     private const int NUMBER_COUNT = 9;
-    private const int CORRECT_NUMBER_COUNT = 1;
-    private const int MIN_NUMBER_VALUE = 10;
+    private const int CORRECT_NUMBER_COUNT = 2;
+    private const int MIN_NUMBER_VALUE = 2;
     private const int MAX_NUMBER_VALUE = 99;
     #endregion
 
@@ -22,15 +21,15 @@ public class NumberManager : MonoBehaviour
     #endregion
 
     #region 숫자 관련 변수
-    public int CurrentTargetMultiple { get; private set; } = INITIAL_TARGET_MULTIPLE;
+    public int CurrentTargetMultiple { get; private set; } = MIN_TARGET_MULTIPLE;
     private readonly Dictionary<int, List<int>> _correctNumbers = new();
     private readonly Dictionary<int, List<int>> _wrongNumbers = new();
     public List<int> Numbers { get; private set; } = new();
     #endregion
 
     #region 이벤트
-    public Action<int> OnCurrentTargetMultipleChanged;
-    public Action<List<int>> OnNumbersChanged;
+    public event Action<int> OnCurrentTargetMultipleChanged;
+    public event Action<List<int>> OnNumbersChanged;
     #endregion
 
     #region 초기화
@@ -73,11 +72,17 @@ public class NumberManager : MonoBehaviour
     #region 숫자 관리
     public void IncreaseTargetMultiple()
     {
-        // 목표 배수 증가
-        CurrentTargetMultiple++;
+        // 다음 목표 배수 계산
+        var newTargetMultiple = CurrentTargetMultiple + 1;
 
         // 범위 밖의 값이면 최소값으로 초기화
-        if (CurrentTargetMultiple < MIN_TARGET_MULTIPLE || CurrentTargetMultiple > MAX_TARGET_MULTIPLE) CurrentTargetMultiple = MIN_TARGET_MULTIPLE;
+        if (newTargetMultiple < MIN_TARGET_MULTIPLE || newTargetMultiple > MAX_TARGET_MULTIPLE)
+        {
+            newTargetMultiple = MIN_TARGET_MULTIPLE;
+        }
+
+        // 목표 배수 업데이트
+        CurrentTargetMultiple = newTargetMultiple;
 
         // 목표 배수 변경 이벤트 호출
         OnCurrentTargetMultipleChanged?.Invoke(CurrentTargetMultiple);
