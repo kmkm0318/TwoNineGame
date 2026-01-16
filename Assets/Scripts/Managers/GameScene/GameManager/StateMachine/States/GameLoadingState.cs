@@ -18,10 +18,10 @@ public class GameLoadingState : GameBaseState
     public override void OnEnter()
     {
         // 라운드 매니저 초기화
-        _roundManager.Init();
+        _roundManager.Reset();
 
         // 숫자 매니저 초기화
-        _numberManager.Init();
+        _numberManager.Reset();
 
         // 라운드 시작 상태로 전환
         StateMachine.ChangeState(Factory.RoundStartState);

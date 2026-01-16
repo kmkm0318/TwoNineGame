@@ -6,14 +6,22 @@ using UnityEngine;
 /// </summary>
 public class RoundManager : MonoBehaviour
 {
+    #region 상수
+    private const int INITIAL_MAX_ROUND = 29;
+    #endregion
+
     [Header("Round Settings")]
     [SerializeField] private float _roundTimeMin = 2f;
     [SerializeField] private float _roundTimeMax = 9f;
     [SerializeField] private float _roundTimeDecreaseAmount = 0.29f;
 
+    #region 레퍼런스
+    private UserDataManager _userDataManager;
+    #endregion
+
     #region 라운드 변수
     public bool IsRoundActive { get; set; } = false;
-    public int MaxRound { get; private set; } = 29; //TODO: 플레이어가 달성한 최대 라운드로 설정
+    public int MaxRound { get; private set; } = INITIAL_MAX_ROUND;
     public int CurrentRound { get; private set; } = 0;
     public float MaxRoundTime { get; private set; } = 0f;
     public float CurrentRoundTime { get; private set; } = 0f;
@@ -29,10 +37,19 @@ public class RoundManager : MonoBehaviour
     #endregion
 
     #region 초기화
-    public void Init()
+    public void Init(UserDataManager userDataManager)
     {
-        // 라운드 초기화
+        // 레퍼런스 설정
+        _userDataManager = userDataManager;
+    }
+
+    public void Reset()
+    {
+        // 라운드 비활성화
         IsRoundActive = false;
+
+        // 최대 라운드 설정
+        UpdateMaxRound(_userDataManager.UserData.HighScore);
 
         // 현재 라운드 설정
         CurrentRound = 0;
@@ -121,6 +138,20 @@ public class RoundManager : MonoBehaviour
 
         // 라운드 실패 이벤트 호출
         OnRoundFailed?.Invoke();
+    }
+    #endregion
+
+    #region 변수 변경
+    public void UpdateMaxRound(int newMaxRound)
+    {
+        // 새로운 최대 라운드가 기존 최대 라운드보다 작거나 같으면 변경하지 않음
+        if (newMaxRound <= MaxRound) return;
+
+        // 최대 라운드 변경
+        MaxRound = newMaxRound;
+
+        // 이벤트 호출
+        OnMaxRoundChanged?.Invoke(MaxRound);
     }
     #endregion
 }

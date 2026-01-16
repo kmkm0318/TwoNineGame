@@ -36,14 +36,14 @@ public class NumberManager : MonoBehaviour
     public event Action OnWrongNumberSelected;
     #endregion
 
-    private void Awake()
+    #region 초기화
+    public void Init()
     {
         // 올바른 숫자 및 잘못된 숫자 리스트 딕셔너리 생성
-        SetupNumberLists();
+        GenerateNumberLists();
     }
 
-    #region 숫자 리스트 딕셔너리 생성
-    private void SetupNumberLists()
+    private void GenerateNumberLists()
     {
         // 각 배수에 대해 실행
         for (int multiple = _minTargetMultiple; multiple <= _maxTargetMultiple; multiple++)
@@ -68,10 +68,8 @@ public class NumberManager : MonoBehaviour
             }
         }
     }
-    #endregion
 
-    #region 초기화
-    public void Init()
+    public void Reset()
     {
         // 초기 목표 배수 설정
         CurrentTargetMultiple = INITIAL_TARGET_MULTIPLE;

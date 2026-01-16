@@ -1,19 +1,20 @@
-using System;
 using UnityEngine;
 
 /// <summary>
 /// 게임 씬에서 게임의 전반적인 관리를 담당하는 매니저 클래스
 /// </summary>
-public class GameManager : Singleton<GameManager>
+public class GameManager : MonoBehaviour
 {
     #region 매니저 레퍼런스
     [Header("Game Scene Managers")]
     [SerializeField] private GameUIManager _gameUIManager;
     [SerializeField] private RoundManager _roundManager;
     [SerializeField] private NumberManager _numberManager;
+    [SerializeField] private UserDataManager _userDataManager;
     public GameUIManager GameUIManager => _gameUIManager;
     public RoundManager RoundManager => _roundManager;
     public NumberManager NumberManager => _numberManager;
+    public UserDataManager UserDataManager => _userDataManager;
     #endregion
 
     #region FSM
@@ -21,10 +22,8 @@ public class GameManager : Singleton<GameManager>
     private GameStateFactory _gameStateFactory;
     #endregion
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-
         // 초기화
         Init();
     }
@@ -56,8 +55,9 @@ public class GameManager : Singleton<GameManager>
     {
         // 각 매니저 초기화
         _gameUIManager.Init(this);
-        _roundManager.Init();
+        _roundManager.Init(_userDataManager);
         _numberManager.Init();
+        _userDataManager.Init();
     }
     #endregion
 

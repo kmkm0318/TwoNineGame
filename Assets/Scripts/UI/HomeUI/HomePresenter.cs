@@ -26,6 +26,14 @@ public class HomePresenter : MonoBehaviour, IShowHide
 
         // UI 이벤트 구독
         RegisterEvents();
+
+        // UI 초기화
+        InitUI();
+    }
+
+    private void InitUI()
+    {
+        // 초기 UI 설정이 필요한 경우 여기에 추가
     }
     #endregion
 
