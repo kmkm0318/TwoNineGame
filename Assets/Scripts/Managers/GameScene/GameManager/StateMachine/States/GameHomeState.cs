@@ -3,22 +3,26 @@
 /// </summary>
 public class GameHomeState : GameBaseState
 {
+    #region 레퍼런스
+    private HomePresenter _homePresenter;
+    #endregion
+
     public GameHomeState(GameManager gameManager, GameStateMachine stateMachine, GameStateFactory factory) : base(gameManager, stateMachine, factory)
     {
-
+        // 레퍼런스 할당
+        _homePresenter = gameManager.GameUIManager.HomePresenter;
     }
 
     public override void OnEnter()
     {
-        // TODO: 홈 UI 표시
-
-        // 지금은 게임 로딩 상태로 바로 전환
-        StateMachine.ChangeState(Factory.LoadingState);
+        // 홈 UI 표시
+        _homePresenter.Show();
     }
 
     public override void OnExit()
     {
-        // TODO: 홈 UI 숨기기
+        // 홈 UI 숨기기
+        _homePresenter.Hide();
     }
 
     public override void OnUpdate()

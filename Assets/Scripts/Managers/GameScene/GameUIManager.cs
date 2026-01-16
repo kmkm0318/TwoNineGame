@@ -5,8 +5,13 @@ using UnityEngine;
 /// </summary>
 public class GameUIManager : MonoBehaviour
 {
+    #region 프레젠터
     [Header("UI Presenters")]
     [SerializeField] private GameUIPresenter _gameUIPresenter;
+    [SerializeField] private HomePresenter _homePresenter;
+    public GameUIPresenter GameUIPresenter => _gameUIPresenter;
+    public HomePresenter HomePresenter => _homePresenter;
+    #endregion
 
     #region 레퍼런스
     private GameManager _gameManager;
@@ -24,8 +29,9 @@ public class GameUIManager : MonoBehaviour
 
     private void InitPresenters()
     {
-        // 게임 UI 프리젠터 초기화
+        // 각 프리젠터 초기화
         _gameUIPresenter.Init(_gameManager.RoundManager, _gameManager.NumberManager);
+        _homePresenter.Init(_gameManager);
     }
     #endregion
 }

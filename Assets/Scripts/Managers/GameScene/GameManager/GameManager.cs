@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -57,6 +58,14 @@ public class GameManager : Singleton<GameManager>
         _gameUIManager.Init(this);
         _roundManager.Init();
         _numberManager.Init();
+    }
+    #endregion
+
+    #region 상태 전환 함수
+    public void StartGame()
+    {
+        // 로딩 상태로 전환
+        _gameStateMachine.ChangeState(_gameStateFactory.LoadingState);
     }
     #endregion
 }

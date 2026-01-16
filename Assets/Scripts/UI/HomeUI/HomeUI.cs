@@ -5,7 +5,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 홈 UI를 담당하는 클래스
 /// </summary>
-public class HomeUI : MonoBehaviour
+public class HomeUI : ShowHideUI
 {
     #region UI 레퍼런스
     [Header("UI Components")]
@@ -29,5 +29,14 @@ public class HomeUI : MonoBehaviour
         _leaderboardButton.onClick.AddListener(() => OnLeaderboardButtonClicked?.Invoke());
         _settingsButton.onClick.AddListener(() => OnSettingsButtonClicked?.Invoke());
         _exitButton.onClick.AddListener(() => OnExitButtonClicked?.Invoke());
+    }
+
+    public override void Show()
+    {
+        // 기존 Show 호출
+        base.Show();
+
+        // 시작 버튼 포커스
+        _startButton.Select();
     }
 }
