@@ -6,6 +6,13 @@ using UnityEngine;
 /// </summary>
 public abstract class UIAnimation : MonoBehaviour
 {
+    [Header("Animation Settings")]
+    [SerializeField] protected float _originalScale = 1f;
+    [SerializeField] protected float _largeScale = 1.1f;
+    [SerializeField] protected float _smallScale = 0.9f;
+    [SerializeField] protected float _animationDuration = 0.2f;
+    [SerializeField] protected Ease _animationEase = Ease.OutBack;
+
     protected void PlayScaleAnimation(float targetScale, float duration = 0.5f, Ease ease = Ease.OutBack)
     {
         // 현재 재생 중인 애니메이션이 있으면 종료

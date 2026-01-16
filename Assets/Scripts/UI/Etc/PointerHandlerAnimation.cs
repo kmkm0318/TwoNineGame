@@ -1,4 +1,3 @@
-using DG.Tweening;
 using UnityEngine;
 
 /// <summary>
@@ -7,13 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(PointerHandler))]
 public class PointerHandlerAnimation : UIAnimation
 {
-    [Header("Animation Settings")]
-    [SerializeField] private float _originalScale = 1f;
-    [SerializeField] private float _largeScale = 1.1f;
-    [SerializeField] private float _smallScale = 0.9f;
-    [SerializeField] private float _animationDuration = 0.2f;
-    [SerializeField] private Ease _animationEase = Ease.OutBack;
-
     #region 레퍼런스
     private PointerHandler _pointerHandler;
     #endregion
