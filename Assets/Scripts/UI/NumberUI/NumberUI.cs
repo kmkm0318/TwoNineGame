@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -33,8 +34,16 @@ public class NumberUI : MonoBehaviour
     {
         _numberButtonPool = new(
             () => Instantiate(_numberButtonPrefab, _numberButtonContainer),
-            (button) => { button.gameObject.SetActive(true); _activeNumberButtons.Add(button); },
-            (button) => { button.gameObject.SetActive(false); _activeNumberButtons.Remove(button); },
+            (button) =>
+            {
+                button.gameObject.SetActive(true);
+                _activeNumberButtons.Add(button);
+            },
+            (button) =>
+            {
+                button.gameObject.SetActive(false);
+                _activeNumberButtons.Remove(button);
+            },
             (button) => Destroy(button.gameObject)
         );
     }
@@ -48,6 +57,10 @@ public class NumberUI : MonoBehaviour
 
     public void UpdateNumberButtons(List<int> numbers)
     {
+        // 포커스 업데이트가 필요한지 여부 저장
+        bool shouldUpdateFocus = _activeNumberButtons.Count == 0 && numbers.Count > 0;
+
+        // 기존 숫자 버튼 클리어
         ClearNumberButtons();
 
         foreach (int number in numbers)
@@ -61,15 +74,21 @@ public class NumberUI : MonoBehaviour
             // 숫자 버튼 클릭 이벤트 구독
             numberButton.OnNumberButtonClicked += HandleOnNumberButtonClicked;
         }
+
+        // 포커스 업데이트가 필요할 경우 업데이트
+        if (shouldUpdateFocus)
+        {
+            UpdateFocus();
+        }
     }
 
     public void ClearNumberButtons()
     {
         // 활성화된 모든 숫자 버튼 반환
-        for (int i = _activeNumberButtons.Count - 1; i >= 0; i--)
+        while (_activeNumberButtons.Count > 0)
         {
             // 버튼 가져오기
-            var numberButton = _activeNumberButtons[i];
+            var numberButton = _activeNumberButtons[0];
 
             // 이벤트 구독 해제
             numberButton.OnNumberButtonClicked -= HandleOnNumberButtonClicked;
@@ -77,6 +96,21 @@ public class NumberUI : MonoBehaviour
             // 버튼 풀에 반환
             _numberButtonPool.Release(numberButton);
         }
+    }
+
+    public void UpdateFocus()
+    {
+        // 개수 가져오기
+        int count = _activeNumberButtons.Count;
+
+        // 개수가 0 이하일 경우 패스
+        if (count <= 0) return;
+
+        // 가운데 버튼 계산
+        int middleIndex = count / 2;
+
+        // 가운데 버튼 선택
+        _activeNumberButtons[middleIndex].Select();
     }
     #endregion
 

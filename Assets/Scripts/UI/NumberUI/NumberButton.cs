@@ -42,4 +42,11 @@ public class NumberButton : MonoBehaviour
         _numberText.text = _number.ToString();
     }
     #endregion
+
+    #region UI 함수
+    public void Select()
+    {
+        _button.Select();
+    }
+    #endregion
 }
