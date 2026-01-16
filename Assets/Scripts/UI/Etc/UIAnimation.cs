@@ -6,23 +6,12 @@ using UnityEngine;
 /// </summary>
 public abstract class UIAnimation : MonoBehaviour
 {
-    private DOTweenAnimation _currentAnimation;
-
-    protected void PlayAnimation(DOTweenAnimation animation)
+    protected void PlayScaleAnimation(float targetScale, float duration = 0.5f, Ease ease = Ease.OutBack)
     {
-        // 애니메이션이 없으면 패스
-        if (animation == null) return;
+        // 현재 재생 중인 애니메이션이 있으면 종료
+        transform.DOKill();
 
-        // 현재 재생 중인 애니메이션이 있으면 중지
-        if (_currentAnimation != null)
-        {
-            _currentAnimation.DOPause();
-        }
-
-        // 현재 애니메이션 설정
-        _currentAnimation = animation;
-
-        // 애니메이션 재생
-        animation.DORestart();
+        // 스케일 애니메이션 재생
+        transform.DOScale(targetScale, duration).SetEase(ease);
     }
 }

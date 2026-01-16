@@ -7,12 +7,12 @@ using UnityEngine;
 [RequireComponent(typeof(PointerHandler))]
 public class PointerHandlerAnimation : UIAnimation
 {
-    [Header("Animations")]
-    [SerializeField] private DOTweenAnimation _pointerEnterAnimation;
-    [SerializeField] private DOTweenAnimation _pointerExitAnimation;
-    [SerializeField] private DOTweenAnimation _pointerDownAnimation;
-    [SerializeField] private DOTweenAnimation _pointerUpAnimation;
-    [SerializeField] private DOTweenAnimation _pointerClickAnimation;
+    [Header("Animation Settings")]
+    [SerializeField] private float _originalScale = 1f;
+    [SerializeField] private float _largeScale = 1.1f;
+    [SerializeField] private float _smallScale = 0.9f;
+    [SerializeField] private float _animationDuration = 0.2f;
+    [SerializeField] private Ease _animationEase = Ease.OutBack;
 
     #region 레퍼런스
     private PointerHandler _pointerHandler;
@@ -31,10 +31,10 @@ public class PointerHandlerAnimation : UIAnimation
         }
 
         // 포인터 이벤트에 애니메이션 재생 메서드 등록
-        _pointerHandler.OnPointerEntered += () => PlayAnimation(_pointerEnterAnimation);
-        _pointerHandler.OnPointerExited += () => PlayAnimation(_pointerExitAnimation);
-        _pointerHandler.OnPointerDowned += () => PlayAnimation(_pointerDownAnimation);
-        _pointerHandler.OnPointerUpped += () => PlayAnimation(_pointerUpAnimation);
-        _pointerHandler.OnPointerClicked += () => PlayAnimation(_pointerClickAnimation);
+        _pointerHandler.OnPointerEntered += () => PlayScaleAnimation(_largeScale, _animationDuration, _animationEase);
+        _pointerHandler.OnPointerExited += () => PlayScaleAnimation(_originalScale, _animationDuration, _animationEase);
+        _pointerHandler.OnPointerDowned += () => PlayScaleAnimation(_smallScale, _animationDuration, _animationEase);
+        _pointerHandler.OnPointerUpped += () => PlayScaleAnimation(_originalScale, _animationDuration, _animationEase);
+        _pointerHandler.OnPointerClicked += () => PlayScaleAnimation(_originalScale, _animationDuration, _animationEase);
     }
 }
