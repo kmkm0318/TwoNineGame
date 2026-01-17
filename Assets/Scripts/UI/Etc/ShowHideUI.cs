@@ -20,6 +20,8 @@ public class ShowHideUI : MonoBehaviour, IShowHide
 
     public virtual void Show(float duration = 0.5f, Action onComplete = null)
     {
+        $"Show UI: background: {_background}, panel: {_panel}".Log(this);
+
         // 이전 애니메이션이 있으면 종료
         _currentSequence?.Kill();
 
@@ -49,13 +51,13 @@ public class ShowHideUI : MonoBehaviour, IShowHide
             if (_background != null)
             {
                 // 배경 페이드 인
-                _currentSequence.Join(_background.DOFade(1f, duration));
+                _currentSequence.Join(_background.DOFade(1f, duration).From(0f));
             }
 
             if (_panel != null)
             {
                 // 패널 이동
-                _currentSequence.Join(_panel.DOAnchorPos(_showPosition, duration).SetEase(_animationEase));
+                _currentSequence.Join(_panel.DOAnchorPos(_showPosition, duration).From(_hidePosition).SetEase(_animationEase));
             }
 
             // 완료 콜백 설정
@@ -93,10 +95,10 @@ public class ShowHideUI : MonoBehaviour, IShowHide
             _currentSequence = DOTween.Sequence();
 
             // 배경 페이드 아웃
-            _currentSequence.Append(_background.DOFade(0f, duration));
+            _currentSequence.Append(_background.DOFade(0f, duration).From(1f));
 
             // 패널 이동
-            _currentSequence.Join(_panel.DOAnchorPos(_hidePosition, duration).SetEase(_animationEase));
+            _currentSequence.Join(_panel.DOAnchorPos(_hidePosition, duration).From(_showPosition).SetEase(_animationEase));
 
             // 완료 콜백 설정
             _currentSequence.OnComplete(() =>

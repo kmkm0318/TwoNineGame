@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -62,10 +63,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region 상태 전환 함수
-    public void StartGame()
-    {
-        // 로딩 상태로 전환
-        _gameStateMachine.ChangeState(_gameStateFactory.LoadingState);
-    }
+    public void StartGame() => _gameStateMachine.ChangeState(_gameStateFactory.LoadingState);
+    public void ExitGame() => _gameStateMachine.ChangeState(_gameStateFactory.HomeState);
     #endregion
 }

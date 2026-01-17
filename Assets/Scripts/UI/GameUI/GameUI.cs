@@ -11,7 +11,7 @@ public class GameUI : MonoBehaviour, IShowHide
     [SerializeField] private ShowHideUI _showHideUI;
 
     #region Show, Hide
-    public void Show(float duration = 0.5F, Action onComplete = null) => _showHideUI.Show(duration, onComplete);
-    public void Hide(float duration = 0.5F, Action onComplete = null) => _showHideUI.Hide(duration, onComplete);
+    public void Show(float duration = 0.5f, Action onComplete = null) => _showHideUI.Show(duration, onComplete);
+    public void Hide(float duration = 0.5f, Action onComplete = null) => _showHideUI.Hide(duration, onComplete);
     #endregion
 }
