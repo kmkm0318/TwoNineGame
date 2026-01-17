@@ -20,8 +20,6 @@ public class ShowHideUI : MonoBehaviour, IShowHide
 
     public virtual void Show(float duration = 0.5f, Action onComplete = null)
     {
-        $"Show UI: background: {_background}, panel: {_panel}".Log(this);
-
         // 이전 애니메이션이 있으면 종료
         _currentSequence?.Kill();
 
