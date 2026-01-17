@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActionButton
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -272,10 +272,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActionButtonAnimation
   _originalScale: 1
-  _largeScale: 1.1
-  _smallScale: 0.9
-  _animationDuration: 0.2
-  _animationEase: 27
+  _positiveScale: 1.1
+  _negativeScale: 0.9
+  _scaleDuration: 0.2
+  _scaleEase: 27
+  _originalPositionY: 0
+  _positivePositionY: 10
+  _negativePositionY: -10
+  _moveYDuration: 0.2
+  _moveYEase: 27
+  _punchRotationAngle: 30
+  _punchRotationDuration: 0.5
+  _punchVibrato: 10
+  _punchElasticity: 1
+  _punchRotationEase: 0
+  _normalAnimationType: 1
+  _highlightedAnimationType: 1
+  _pressedAnimationType: 1
+  _disabledAnimationType: 1
+  _selectedAnimationType: 0
 --- !u!1 &9087495337825707034
 GameObject:
   m_ObjectHideFlags: 0

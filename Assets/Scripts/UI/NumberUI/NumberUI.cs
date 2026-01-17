@@ -57,9 +57,6 @@ public class NumberUI : MonoBehaviour
 
     public void UpdateNumberButtons(List<int> numbers)
     {
-        // 포커스 업데이트가 필요한지 여부 저장
-        bool shouldUpdateFocus = _activeNumberButtons.Count == 0 && numbers.Count > 0;
-
         // 기존 숫자 버튼 클리어
         ClearNumberButtons();
 
@@ -73,12 +70,6 @@ public class NumberUI : MonoBehaviour
 
             // 숫자 버튼 클릭 이벤트 구독
             numberButton.OnNumberButtonClicked += HandleOnNumberButtonClicked;
-        }
-
-        // 포커스 업데이트가 필요할 경우 업데이트
-        if (shouldUpdateFocus)
-        {
-            UpdateFocus();
         }
     }
 
@@ -98,6 +89,10 @@ public class NumberUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 가운데 숫자 버튼에 포커스 업데이트
+    /// 현재는 사용하지 않음
+    /// </summary>
     public void UpdateFocus()
     {
         // 개수 가져오기

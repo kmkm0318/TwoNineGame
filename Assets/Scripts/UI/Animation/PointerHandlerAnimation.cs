@@ -6,6 +6,13 @@ using UnityEngine;
 [RequireComponent(typeof(PointerHandler))]
 public class PointerHandlerAnimation : UIAnimation
 {
+    [Header("PointerHandler Animation Settings")]
+    [SerializeField] private UIAnimationType _enterAnimationType = UIAnimationType.Scale;
+    [SerializeField] private UIAnimationType _exitAnimationType = UIAnimationType.Scale;
+    [SerializeField] private UIAnimationType _downAnimationType = UIAnimationType.Scale;
+    [SerializeField] private UIAnimationType _upAnimationType = UIAnimationType.Scale;
+    [SerializeField] private UIAnimationType _clickAnimationType = UIAnimationType.Scale;
+
     #region 레퍼런스
     private PointerHandler _pointerHandler;
     #endregion
@@ -23,10 +30,10 @@ public class PointerHandlerAnimation : UIAnimation
         }
 
         // 포인터 이벤트에 애니메이션 재생 메서드 등록
-        _pointerHandler.OnPointerEntered += () => PlayScaleAnimation(_largeScale, _animationDuration, _animationEase);
-        _pointerHandler.OnPointerExited += () => PlayScaleAnimation(_originalScale, _animationDuration, _animationEase);
-        _pointerHandler.OnPointerDowned += () => PlayScaleAnimation(_smallScale, _animationDuration, _animationEase);
-        _pointerHandler.OnPointerUpped += () => PlayScaleAnimation(_originalScale, _animationDuration, _animationEase);
-        _pointerHandler.OnPointerClicked += () => PlayScaleAnimation(_originalScale, _animationDuration, _animationEase);
+        _pointerHandler.OnPointerEntered += () => PlayAnimation(_enterAnimationType, true);
+        _pointerHandler.OnPointerExited += () => PlayAnimation(_exitAnimationType, false);
+        _pointerHandler.OnPointerDowned += () => PlayAnimation(_downAnimationType, false, true);
+        _pointerHandler.OnPointerUpped += () => PlayAnimation(_upAnimationType, false);
+        _pointerHandler.OnPointerClicked += () => PlayAnimation(_clickAnimationType, false);
     }
 }

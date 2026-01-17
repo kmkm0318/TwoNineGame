@@ -30,13 +30,4 @@ public class HomeUI : ShowHideUI
         _settingsButton.onClick.AddListener(() => OnSettingsButtonClicked?.Invoke());
         _exitButton.onClick.AddListener(() => OnExitButtonClicked?.Invoke());
     }
-
-    public override void Show()
-    {
-        // 기존 Show 호출
-        base.Show();
-
-        // 시작 버튼 포커스
-        _startButton.Select();
-    }
 }

@@ -6,6 +6,13 @@ using UnityEngine;
 [RequireComponent(typeof(ActionButton))]
 public class ActionButtonAnimation : UIAnimation
 {
+    [Header("ActionButton Animation Settings")]
+    [SerializeField] private UIAnimationType _normalAnimationType = UIAnimationType.Scale;
+    [SerializeField] private UIAnimationType _highlightedAnimationType = UIAnimationType.Scale;
+    [SerializeField] private UIAnimationType _pressedAnimationType = UIAnimationType.Scale;
+    [SerializeField] private UIAnimationType _disabledAnimationType = UIAnimationType.Scale;
+    [SerializeField] private UIAnimationType _selectedAnimationType = UIAnimationType.Scale;
+
     #region 레퍼런스
     private ActionButton _actionButton;
     #endregion
@@ -23,10 +30,10 @@ public class ActionButtonAnimation : UIAnimation
         }
 
         // 액션 버튼의 상태 변화 이벤트에 애니메이션 재생 메서드 등록
-        _actionButton.OnNormal += () => PlayScaleAnimation(_originalScale, _animationDuration, _animationEase);
-        _actionButton.OnHighlighted += () => PlayScaleAnimation(_largeScale, _animationDuration, _animationEase);
-        _actionButton.OnPressed += () => PlayScaleAnimation(_smallScale, _animationDuration, _animationEase);
-        _actionButton.OnDisabled += () => PlayScaleAnimation(_originalScale, _animationDuration, _animationEase);
-        _actionButton.OnSelected += () => PlayScaleAnimation(_largeScale, _animationDuration, _animationEase);
+        _actionButton.OnNormal += () => PlayAnimation(_normalAnimationType, false);
+        _actionButton.OnHighlighted += () => PlayAnimation(_highlightedAnimationType, true);
+        _actionButton.OnPressed += () => PlayAnimation(_pressedAnimationType, false, true);
+        _actionButton.OnDisabled += () => PlayAnimation(_disabledAnimationType, false);
+        _actionButton.OnSelected += () => PlayAnimation(_selectedAnimationType, true);
     }
 }
