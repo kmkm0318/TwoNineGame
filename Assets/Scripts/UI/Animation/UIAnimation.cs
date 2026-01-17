@@ -24,11 +24,11 @@ public abstract class UIAnimation : MonoBehaviour
     [SerializeField] private Ease _moveYEase = Ease.OutBack;
 
     [Header("Punch RotationZ Settings")]
-    [SerializeField] private float _punchRotationAngle = 30f;
-    [SerializeField] private float _punchRotationDuration = 0.5f;
-    [SerializeField] private int _punchVibrato = 10;
-    [SerializeField] private float _punchElasticity = 1f;
-    [SerializeField] private Ease _punchRotationEase = Ease.Unset;
+    [SerializeField] private float _punchRotationZAngle = 30f;
+    [SerializeField] private float _punchRotationZDuration = 0.5f;
+    [SerializeField] private int _punchRotationZVibrato = 10;
+    [SerializeField] private float _punchRotationZElasticity = 1f;
+    [SerializeField] private Ease _punchRotationZEase = Ease.Unset;
     #endregion
 
     #region 애니메이션 재생
@@ -49,8 +49,8 @@ public abstract class UIAnimation : MonoBehaviour
                 PlayMoveYAnimation(targetPositionY, _moveYDuration, _moveYEase);
                 break;
             case UIAnimationType.PunchRotationZ:
-                float angle = isPositive ? _punchRotationAngle : -_punchRotationAngle;
-                PlayPunchRotationZAnimation(angle, _punchRotationDuration, _punchVibrato, _punchElasticity, _punchRotationEase);
+                float angle = isPositive ? _punchRotationZAngle : -_punchRotationZAngle;
+                PlayPunchRotationZAnimation(angle, _punchRotationZDuration, _punchRotationZVibrato, _punchRotationZElasticity, _punchRotationZEase);
                 break;
             case UIAnimationType.None:
             default:
@@ -71,13 +71,13 @@ public abstract class UIAnimation : MonoBehaviour
         transform.DOLocalMoveY(targetPositionY, duration).SetEase(ease);
     }
 
-    protected void PlayPunchRotationZAnimation(float punchRotationAngle, float duration, int vibrato, float elasticity, Ease ease)
+    protected void PlayPunchRotationZAnimation(float angle, float duration, int vibrato, float elasticity, Ease ease)
     {
         // 펀치 회전은 Z축 기준으로
-        Vector3 punchRotation = new(0f, 0f, punchRotationAngle);
+        Vector3 punch = new(0f, 0f, angle);
 
         // 펀치 회전 애니메이션 재생
-        transform.DOPunchRotation(punchRotation, duration, vibrato, elasticity).SetEase(ease);
+        transform.DOPunchRotation(punch, duration, vibrato, elasticity).SetEase(ease);
     }
     #endregion
 }
