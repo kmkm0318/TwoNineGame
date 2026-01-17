@@ -7,9 +7,9 @@ public class GameUIManager : MonoBehaviour
 {
     #region 프레젠터
     [Header("UI Presenters")]
-    [SerializeField] private GameUIPresenter _gameUIPresenter;
+    [SerializeField] private GamePresenter _gamePresenter;
     [SerializeField] private HomePresenter _homePresenter;
-    public GameUIPresenter GameUIPresenter => _gameUIPresenter;
+    public GamePresenter GamePresenter => _gamePresenter;
     public HomePresenter HomePresenter => _homePresenter;
     #endregion
 
@@ -30,7 +30,7 @@ public class GameUIManager : MonoBehaviour
     private void InitPresenters()
     {
         // 각 프리젠터 초기화
-        _gameUIPresenter.Init(_gameManager.RoundManager, _gameManager.NumberManager);
+        _gamePresenter.Init(_gameManager.RoundManager, _gameManager.NumberManager);
         _homePresenter.Init(_gameManager);
     }
     #endregion

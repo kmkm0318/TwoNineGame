@@ -3,9 +3,10 @@ using UnityEngine;
 /// <summary>
 /// 게임 씬의 UI 프리젠터 클래스
 /// </summary>
-public class GameUIPresenter : MonoBehaviour
+public class GamePresenter : MonoBehaviour, IShowHide
 {
     [Header("UI Components")]
+    [SerializeField] private GameUI _gameUI;
     [SerializeField] private RoundUI _roundUI;
     [SerializeField] private NumberUI _numberUI;
 
@@ -72,6 +73,18 @@ public class GameUIPresenter : MonoBehaviour
         _numberManager.OnNumbersChanged -= _numberUI.UpdateNumberButtons;
 
         _numberUI.OnNumberButtonClicked -= _numberManager.HandleOnNumberButtonClicked;
+    }
+    #endregion
+
+    #region Show, Hide
+    public void Show()
+    {
+        _gameUI.Show();
+    }
+
+    public void Hide()
+    {
+        _gameUI.Hide();
     }
     #endregion
 }
