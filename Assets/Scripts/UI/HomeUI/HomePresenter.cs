@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -80,14 +81,7 @@ public class HomePresenter : MonoBehaviour, IShowHide
     #endregion
 
     #region Show, Hide
-    public void Show()
-    {
-        _homeUI.Show();
-    }
-
-    public void Hide()
-    {
-        _homeUI.Hide();
-    }
+    public void Show(float duration = 0.5f, Action onComplete = null) => _homeUI.Show(duration, onComplete);
+    public void Hide(float duration = 0.5f, Action onComplete = null) => _homeUI.Hide(duration, onComplete);
     #endregion
 }

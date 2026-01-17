@@ -31,11 +31,15 @@ public abstract class UIAnimation : MonoBehaviour
     [SerializeField] private Ease _punchRotationZEase = Ease.Unset;
     #endregion
 
+    #region 변수
+    private Tween _currentTween;
+    #endregion
+
     #region 애니메이션 재생
     protected void PlayAnimation(UIAnimationType animationType, bool isPositive, bool isNegative = false)
     {
         // 현재 재생 중인 애니메이션이 있으면 종료
-        transform.DOComplete(true);
+        _currentTween?.Kill();
 
         // 애니메이션 타입에 따른 분기 처리
         switch (animationType)
@@ -62,13 +66,13 @@ public abstract class UIAnimation : MonoBehaviour
     protected void PlayScaleAnimation(float targetScale, float duration, Ease ease)
     {
         // 스케일 애니메이션 재생
-        transform.DOScale(targetScale, duration).SetEase(ease);
+        _currentTween = transform.DOScale(targetScale, duration).SetEase(ease);
     }
 
     protected void PlayMoveYAnimation(float targetPositionY, float duration, Ease ease)
     {
         // LocalMoveY 애니메이션 재생
-        transform.DOLocalMoveY(targetPositionY, duration).SetEase(ease);
+        _currentTween = transform.DOLocalMoveY(targetPositionY, duration).SetEase(ease);
     }
 
     protected void PlayPunchRotationZAnimation(float angle, float duration, int vibrato, float elasticity, Ease ease)
@@ -77,7 +81,7 @@ public abstract class UIAnimation : MonoBehaviour
         Vector3 punch = new(0f, 0f, angle);
 
         // 펀치 회전 애니메이션 재생
-        transform.DOPunchRotation(punch, duration, vibrato, elasticity).SetEase(ease);
+        _currentTween = transform.DOPunchRotation(punch, duration, vibrato, elasticity).SetEase(ease);
     }
     #endregion
 }

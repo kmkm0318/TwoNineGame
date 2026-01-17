@@ -15,14 +15,14 @@ public class GameHomeState : GameBaseState
 
     public override void OnEnter()
     {
-        // 홈 UI 표시
-        _homePresenter.Show();
+        // 홈 UI 즉시 표시
+        _homePresenter.Show(0f);
     }
 
     public override void OnExit()
     {
-        // 홈 UI 숨기기
-        _homePresenter.Hide();
+        // 홈 UI 즉시 숨기기
+        _homePresenter.Hide(0f);
     }
 
     public override void OnUpdate()

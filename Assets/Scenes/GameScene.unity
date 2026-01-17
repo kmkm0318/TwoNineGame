@@ -1005,13 +1005,14 @@ GameObject:
   m_Component:
   - component: {fileID: 424136665}
   - component: {fileID: 424136666}
+  - component: {fileID: 424136667}
   m_Layer: 5
   m_Name: GameUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &424136665
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1046,6 +1047,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80e230a8590658e4093079c6c6c4242a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameUI
+  _showHideUI: {fileID: 424136667}
+--- !u!114 &424136667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 424136664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418185a273bb223418719d614b9544ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShowHideUI
+  _background: {fileID: 0}
+  _panel: {fileID: 0}
+  _showPosition: {x: 0, y: 0}
+  _hidePosition: {x: 0, y: -1000}
+  _animationEase: 9
 --- !u!1 &430677472
 GameObject:
   m_ObjectHideFlags: 0
@@ -2113,6 +2132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1678161846}
   - component: {fileID: 1678161847}
+  - component: {fileID: 1678161848}
   m_Layer: 5
   m_Name: HomeUI
   m_TagString: Untagged
@@ -2154,10 +2174,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674984c999fc20e49821af3b975c05ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HomeUI
+  _showHideUI: {fileID: 1678161848}
   _startButton: {fileID: 1932262963}
   _leaderboardButton: {fileID: 994564686}
   _settingsButton: {fileID: 1772283646}
   _exitButton: {fileID: 1741188457}
+--- !u!114 &1678161848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678161845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418185a273bb223418719d614b9544ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShowHideUI
+  _background: {fileID: 0}
+  _panel: {fileID: 0}
+  _showPosition: {x: 0, y: 0}
+  _hidePosition: {x: 0, y: -1000}
+  _animationEase: 9
 --- !u!1001 &1708045293
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2172,11 +2210,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1158375893009181417, guid: e144a63d2b609354f9c5fe9ae74961ee, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1158375893009181417, guid: e144a63d2b609354f9c5fe9ae74961ee, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1316879072582426864, guid: e144a63d2b609354f9c5fe9ae74961ee, type: 3}
       propertyPath: m_TargetGraphic
@@ -2752,11 +2790,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1158375893009181417, guid: e144a63d2b609354f9c5fe9ae74961ee, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1158375893009181417, guid: e144a63d2b609354f9c5fe9ae74961ee, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1316879072582426864, guid: e144a63d2b609354f9c5fe9ae74961ee, type: 3}
       propertyPath: m_TargetGraphic
