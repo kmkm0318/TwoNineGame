@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 25
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5efd4400ff27e884cb7d960b88a48a1e, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 0e49c158c940ac142af9f0bc33a1332a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 53f9cb2dcf76c2549b59c28ca3f22e1f, type: 2}
+  m_sharedMaterial: {fileID: -5293450679239380251, guid: 53f9cb2dcf76c2549b59c28ca3f22e1f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,13 +92,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
+  m_fontSize: 72
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 36
-  m_fontSizeMax: 60
-  m_fontStyle: 1
+  m_fontSizeMax: 72
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5019608, g: 1, b: 0.5019608, a: 1}
+  m_Color: {r: 0.7509804, g: 0.5019608, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -272,8 +272,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActionButtonAnimation
   _originalScale: 1
-  _scaleUpFactor: 1.1
-  _scaleDownFactor: 0.9
+  _largeScale: 1.1
+  _smallScale: 0.9
   _animationDuration: 0.2
   _animationEase: 27
 --- !u!1 &9087495337825707034
