@@ -1111,8 +1111,8 @@ MonoBehaviour:
   _wrongColor: {r: 1, g: 0.5019608, b: 0.5019608, a: 1}
   _primeFactorParticlePrefab: {fileID: 8954470333624686040, guid: 8ba201e08f590ef4f94175fbe916a83b, type: 3}
   _primeFactorParticleContainer: {fileID: 378572443}
-  _particleAnimationDuration: 1
   _particleAnimationDistance: 100
+  _particleAnimationDuration: 1
   _particleAnimationEase: 9
 --- !u!1 &424136664
 GameObject:
