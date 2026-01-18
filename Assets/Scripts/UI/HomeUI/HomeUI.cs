@@ -11,14 +11,12 @@ public class HomeUI : MonoBehaviour, IShowHide
     [Header("UI Components")]
     [SerializeField] private ShowHideUI _showHideUI;
     [SerializeField] private Button _startButton;
-    [SerializeField] private Button _leaderboardButton;
     [SerializeField] private Button _settingsButton;
     [SerializeField] private Button _exitButton;
     #endregion
 
     #region 이벤트
     public event Action OnStartButtonClicked;
-    public event Action OnLeaderboardButtonClicked;
     public event Action OnSettingsButtonClicked;
     public event Action OnExitButtonClicked;
     #endregion
@@ -27,7 +25,6 @@ public class HomeUI : MonoBehaviour, IShowHide
     {
         // 버튼 클릭 이벤트 등록
         _startButton.onClick.AddListener(() => OnStartButtonClicked?.Invoke());
-        _leaderboardButton.onClick.AddListener(() => OnLeaderboardButtonClicked?.Invoke());
         _settingsButton.onClick.AddListener(() => OnSettingsButtonClicked?.Invoke());
         _exitButton.onClick.AddListener(() => OnExitButtonClicked?.Invoke());
     }

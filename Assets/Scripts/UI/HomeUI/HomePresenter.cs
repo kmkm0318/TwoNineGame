@@ -42,7 +42,6 @@ public class HomePresenter : MonoBehaviour, IShowHide
     private void RegisterEvents()
     {
         _homeUI.OnStartButtonClicked += HandleStartButtonClicked;
-        _homeUI.OnLeaderboardButtonClicked += HandleLeaderboardButtonClicked;
         _homeUI.OnSettingsButtonClicked += HandleSettingsButtonClicked;
         _homeUI.OnExitButtonClicked += HandleExitButtonClicked;
     }
@@ -50,7 +49,6 @@ public class HomePresenter : MonoBehaviour, IShowHide
     private void UnregisterEvents()
     {
         _homeUI.OnStartButtonClicked -= HandleStartButtonClicked;
-        _homeUI.OnLeaderboardButtonClicked -= HandleLeaderboardButtonClicked;
         _homeUI.OnSettingsButtonClicked -= HandleSettingsButtonClicked;
         _homeUI.OnExitButtonClicked -= HandleExitButtonClicked;
     }
@@ -61,11 +59,6 @@ public class HomePresenter : MonoBehaviour, IShowHide
     {
         // 게임 시작
         _gameManager.StartGame();
-    }
-
-    private void HandleLeaderboardButtonClicked()
-    {
-        // TODO: 리더보드 UI 표시
     }
 
     private void HandleSettingsButtonClicked()
