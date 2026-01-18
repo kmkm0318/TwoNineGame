@@ -3,6 +3,7 @@
 /// </summary>
 public enum BGMType
 {
+    None,
     MainMenu,
     InGame,
     Result,

@@ -3,6 +3,7 @@
 /// </summary>
 public enum SFXType
 {
+    None,
     RoundStart,
     RoundSuccess,
     RoundFail,
