@@ -59,6 +59,7 @@ public class GamePresenter : MonoBehaviour, IShowHide
 
         _numberManager.OnCurrentTargetMultipleChanged += _numberUI.UpdateTargetMultipleText;
         _numberManager.OnNumbersChanged += _numberUI.UpdateNumberButtons;
+        _numberManager.OnPrimeFactorAnimationRequested += _numberUI.PlayPrimeFactorParticleAnimation;
 
         _numberUI.OnNumberButtonClicked += _numberManager.HandleOnNumberButtonClicked;
     }
@@ -72,6 +73,7 @@ public class GamePresenter : MonoBehaviour, IShowHide
 
         _numberManager.OnCurrentTargetMultipleChanged -= _numberUI.UpdateTargetMultipleText;
         _numberManager.OnNumbersChanged -= _numberUI.UpdateNumberButtons;
+        _numberManager.OnPrimeFactorAnimationRequested -= _numberUI.PlayPrimeFactorParticleAnimation;
 
         _numberUI.OnNumberButtonClicked -= _numberManager.HandleOnNumberButtonClicked;
     }

@@ -10,19 +10,31 @@ using UnityEngine.Pool;
 /// </summary>
 public class NumberUI : MonoBehaviour
 {
+    #region 에디터 변수
     [Header("UI Elements")]
     [SerializeField] private TMP_Text _targetMultipleText;
-    [SerializeField] private Transform _numberButtonContainer;
+
+    [Header("Number Button Settings")]
     [SerializeField] private NumberButton _numberButtonPrefab;
+    [SerializeField] private Transform _numberButtonContainer;
     [SerializeField] private float _colorChangeDuration = 0.5f;
     [SerializeField] private Ease _colorChangeEase = Ease.Linear;
     [SerializeField] private Color _defaultColor;
     [SerializeField] private Color _correctColor;
     [SerializeField] private Color _wrongColor;
 
+    [Header("Prime Factor Particle Settings")]
+    [SerializeField] private PrimeFactorParticle _primeFactorParticlePrefab;
+    [SerializeField] private Transform _primeFactorParticleContainer;
+    [SerializeField] private float _particleAnimationDistance = 100f;
+    [SerializeField] private float _particleAnimationDuration = 1f;
+    [SerializeField] private Ease _particleAnimationEase = Ease.OutCubic;
+    #endregion
+
     #region 오브젝트 풀
     private ObjectPool<NumberButton> _numberButtonPool;
     private List<NumberButton> _activeNumberButtons = new();
+    private ObjectPool<PrimeFactorParticle> _primeFactorParticlePool;
     #endregion
 
     #region 이벤트
@@ -50,6 +62,13 @@ public class NumberUI : MonoBehaviour
                 _activeNumberButtons.Remove(button);
             },
             (button) => Destroy(button.gameObject)
+        );
+
+        _primeFactorParticlePool = new(
+            () => Instantiate(_primeFactorParticlePrefab, _primeFactorParticleContainer),
+            (particle) => particle.gameObject.SetActive(true),
+            (particle) => particle.gameObject.SetActive(false),
+            (particle) => Destroy(particle.gameObject)
         );
     }
     #endregion
@@ -142,6 +161,53 @@ public class NumberUI : MonoBehaviour
     {
         // 숫자 버튼 클릭 이벤트 전달
         OnNumberButtonClicked?.Invoke(numberButton);
+    }
+
+    public void PlayPrimeFactorParticleAnimation(NumberButton numberButton, List<int> primeFactors)
+    {
+        // 소인수 개수 가져오기
+        int count = primeFactors.Count;
+
+        // 개수가 0 이하면 종료
+        if (count <= 0) return;
+
+        // 시작 위치 설정
+        var startPosition = numberButton.transform.position;
+
+        // 랜덤 시작 각도
+        var startAngle = UnityEngine.Random.Range(0f, 360f);
+
+        // 사이 각도 계산
+        var angleStep = 360f / count;
+
+        for (int i = 0; i < count; i++)
+        {
+            // 파티클 풀에서 파티클 가져오기
+            var particle = _primeFactorParticlePool.Get();
+
+            // 소인수 가져오기
+            var factor = primeFactors[i];
+
+            // 각 파티클이 퍼지는 각도 계산
+            // 시계방향으로 퍼지도록 -를 해줌
+            float angle = startAngle - angleStep * i;
+            float radian = angle * Mathf.Deg2Rad;
+
+            // 끝 위치 계산
+            float endX = startPosition.x + _particleAnimationDistance * Mathf.Cos(radian);
+            float endY = startPosition.y + _particleAnimationDistance * Mathf.Sin(radian);
+            var endPosition = new Vector3(endX, endY, startPosition.z);
+
+            // 애니메이션 재생
+            particle.PlayAnimation(
+                factor,
+                startPosition,
+                endPosition,
+                _particleAnimationDuration,
+                _particleAnimationEase,
+                () => _primeFactorParticlePool.Release(particle)
+            );
+        }
     }
     #endregion
 }

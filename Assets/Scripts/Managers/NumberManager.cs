@@ -24,14 +24,16 @@ public class NumberManager : MonoBehaviour
 
     #region 숫자 관련 변수
     public int CurrentTargetMultiple { get; private set; } = INITIAL_TARGET_MULTIPLE;
+    public List<int> Numbers { get; private set; } = new();
     private readonly Dictionary<int, List<int>> _correctNumberLists = new();
     private readonly Dictionary<int, List<int>> _wrongNumberLists = new();
-    public List<int> Numbers { get; private set; } = new();
+    private readonly Dictionary<int, List<int>> _primeFactorLists = new();
     #endregion
 
     #region 이벤트
     public event Action<int> OnCurrentTargetMultipleChanged;
     public event Action<List<int>> OnNumbersChanged;
+    public event Action<NumberButton, List<int>> OnPrimeFactorAnimationRequested;
     public event Action OnCorrectNumberSelected;
     public event Action OnWrongNumberSelected;
     #endregion
@@ -41,6 +43,9 @@ public class NumberManager : MonoBehaviour
     {
         // 올바른 숫자 및 잘못된 숫자 리스트 딕셔너리 생성
         GenerateNumberLists();
+
+        // 소인수 리스트 딕셔너리 생성
+        GeneratePrimeFactorLists();
     }
 
     private void GenerateNumberLists()
@@ -66,6 +71,46 @@ public class NumberManager : MonoBehaviour
                     _wrongNumberLists[multiple].Add(number);
                 }
             }
+        }
+    }
+
+    private void GeneratePrimeFactorLists()
+    {
+        // 최소값부터 최대값까지 진행
+        for (int i = _minNumberValue; i <= _maxNumberValue; i++)
+        {
+            // 리스트 초기화
+            _primeFactorLists[i] = new();
+
+            // 임시 변수 생성
+            int tmp = i;
+
+            // 2로 나누어 떨어지는 동안 계속 나누기
+            while (tmp % 2 == 0)
+            {
+                // 2 추가
+                _primeFactorLists[i].Add(2);
+
+                // 2로 나누기
+                tmp /= 2;
+            }
+
+            // 3 이상의 홀수 소인수 찾기
+            for (int factor = 3; factor * factor <= tmp; factor += 2)
+            {
+                while (tmp % factor == 0)
+                {
+                    // 소인수 추가
+                    _primeFactorLists[i].Add(factor);
+
+                    // 소인수로 나누기
+                    tmp /= factor;
+                }
+            }
+
+            // 남은 수가 1보다 크면 소인수로 추가
+            if (tmp > 1) _primeFactorLists[i].Add(tmp);
+
         }
     }
 
@@ -147,6 +192,12 @@ public class NumberManager : MonoBehaviour
     #region 이벤트 핸들러
     public void HandleOnNumberButtonClicked(NumberButton numberButton)
     {
+        if (_primeFactorLists.TryGetValue(numberButton.Number, out var primeFactors))
+        {
+            // 소인수 정보와 함께 이벤트 호출
+            OnPrimeFactorAnimationRequested?.Invoke(numberButton, primeFactors);
+        }
+
         // 숫자가 올바른지 판별
         if (numberButton.Number % CurrentTargetMultiple == 0)
         {
