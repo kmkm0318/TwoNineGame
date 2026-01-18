@@ -8,7 +8,7 @@ using UnityEngine;
 public class SettingsManager : MonoBehaviour
 {
     #region 상수
-    private const string SAVE_FILE_NAME = "settings.json";
+    private const string SAVE_FILE_NAME = "Settings.json";
     #endregion
 
     #region 데이터
