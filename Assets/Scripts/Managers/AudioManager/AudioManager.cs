@@ -23,7 +23,21 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private SerializableDictionary<SFXType, AudioClip> _sfxClips;
 
     #region 오디오 재생
-    public void PlayBGM(AudioClip bgmClip)
+    public void PlayBGM(BGMType bgmType)
+    {
+        if (!_bgmClips.TryGetValue(bgmType, out AudioClip bgmClip) || bgmClip == null)
+        {
+            // 클립이 없으면 경고 로그 출력
+            $"{bgmType} BGM 클립이 존재하지 않습니다.".LogWarning();
+        }
+        else
+        {
+            // 클립이 있으면 재생
+            PlayBGM(bgmClip);
+        }
+    }
+
+    private void PlayBGM(AudioClip bgmClip)
     {
         // 같은 클립이면 재생하지 않음
         if (_bgmAudioSource.clip == bgmClip) return;
@@ -35,7 +49,21 @@ public class AudioManager : Singleton<AudioManager>
         _bgmAudioSource.Play();
     }
 
-    public void PlaySFX(AudioClip sfxClip, float pitch = 1f, float randomPitchRange = 0.1f)
+    public void PlaySFX(SFXType sfxType, float pitch = 1f, float randomPitchRange = 0.1f)
+    {
+        if (!_sfxClips.TryGetValue(sfxType, out AudioClip sfxClip) || sfxClip == null)
+        {
+            // 클립이 없으면 경고 로그 출력
+            $"{sfxType} SFX 클립이 존재하지 않습니다.".LogWarning();
+        }
+        else
+        {
+            // 클립이 있으면 재생
+            PlaySFX(sfxClip, pitch, randomPitchRange);
+        }
+    }
+
+    private void PlaySFX(AudioClip sfxClip, float pitch = 1f, float randomPitchRange = 0.1f)
     {
         // 랜덤 피치 적용
         if (randomPitchRange != 0f)
