@@ -43,13 +43,13 @@ public class ResultPresenter : MonoBehaviour, IShowHide
     private void RegisterEvents()
     {
         _resultUI.OnRestartButtonClicked += _gameManager.StartGame;
-        _resultUI.OnExitButtonClicked += _gameManager.ExitGame;
+        _resultUI.OnExitButtonClicked += _gameManager.ReturnToHome;
     }
 
     private void UnregisterEvents()
     {
         _resultUI.OnRestartButtonClicked -= _gameManager.StartGame;
-        _resultUI.OnExitButtonClicked -= _gameManager.ExitGame;
+        _resultUI.OnExitButtonClicked -= _gameManager.ReturnToHome;
     }
     #endregion
 

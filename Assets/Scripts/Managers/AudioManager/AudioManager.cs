@@ -22,6 +22,50 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private SerializableDictionary<BGMType, AudioClip> _bgmClips;
     [SerializeField] private SerializableDictionary<SFXType, AudioClip> _sfxClips;
 
+    #region 레퍼런스
+    private SettingsManager _settingsManager;
+    #endregion
+
+    private void OnDestroy()
+    {
+        // 이벤트 해제
+        UnregisterEvents();
+    }
+
+    #region 초기화
+    public void Init(SettingsManager settingsManager)
+    {
+        // 레퍼런스 설정
+        _settingsManager = settingsManager;
+
+        // 이벤트 등록
+        RegisterEvents();
+
+        // 볼륨 초기화
+        SetBGMVolume(_settingsManager.SettingsData.BGMVolume);
+        SetSFXVolume(_settingsManager.SettingsData.SFXVolume);
+    }
+    #endregion
+
+    #region 이벤트 구독, 해제
+    private void RegisterEvents()
+    {
+        // 설정 변경 이벤트 구독
+        _settingsManager.OnBGMVolumeChanged += SetBGMVolume;
+        _settingsManager.OnSFXVolumeChanged += SetSFXVolume;
+    }
+
+    private void UnregisterEvents()
+    {
+        if (_settingsManager != null)
+        {
+            // 설정 변경 이벤트 구독 해제
+            _settingsManager.OnBGMVolumeChanged -= SetBGMVolume;
+            _settingsManager.OnSFXVolumeChanged -= SetSFXVolume;
+        }
+    }
+    #endregion
+
     #region 오디오 재생
     public void PlayBGM(BGMType bgmType)
     {
@@ -80,11 +124,11 @@ public class AudioManager : Singleton<AudioManager>
     #endregion
 
     #region 오디오 설정
-    public void SetBGMVolume(float volume) => _defaultAudioMixer.SetFloat(BGM_VOLUME_PARAM, volumeToDecibel(volume));
-    public void SetSFXVolume(float volume) => _defaultAudioMixer.SetFloat(SFX_VOLUME_PARAM, volumeToDecibel(volume));
+    public void SetBGMVolume(float volume) => _defaultAudioMixer.SetFloat(BGM_VOLUME_PARAM, VolumeToDecibel(volume));
+    public void SetSFXVolume(float volume) => _defaultAudioMixer.SetFloat(SFX_VOLUME_PARAM, VolumeToDecibel(volume));
     #endregion
 
     #region 계산 함수
-    private float volumeToDecibel(float volume) => Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20f;
+    private float VolumeToDecibel(float volume) => Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20f;
     #endregion
 }

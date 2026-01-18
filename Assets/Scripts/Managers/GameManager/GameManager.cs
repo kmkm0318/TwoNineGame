@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -12,10 +11,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private RoundManager _roundManager;
     [SerializeField] private NumberManager _numberManager;
     [SerializeField] private UserDataManager _userDataManager;
+    [SerializeField] private SettingsManager _settingsManager;
     public GameUIManager GameUIManager => _gameUIManager;
     public RoundManager RoundManager => _roundManager;
     public NumberManager NumberManager => _numberManager;
     public UserDataManager UserDataManager => _userDataManager;
+    public SettingsManager SettingsManager => _settingsManager;
     #endregion
 
     #region FSM
@@ -23,16 +24,19 @@ public class GameManager : MonoBehaviour
     private GameStateFactory _gameStateFactory;
     #endregion
 
-    private void Awake()
+    private void Start()
     {
         // 초기화
         Init();
-    }
 
-    private void Start()
-    {
         // 초기 상태로 전환
         _gameStateMachine.ChangeState(_gameStateFactory.HomeState);
+    }
+
+    private void Update()
+    {
+        // 상태 머신 업데이트
+        _gameStateMachine.UpdateState();
     }
 
     #region 초기화
@@ -59,11 +63,13 @@ public class GameManager : MonoBehaviour
         _roundManager.Init(_userDataManager);
         _numberManager.Init();
         _userDataManager.Init();
+        _settingsManager.Init();
+        AudioManager.Instance.Init(_settingsManager);
     }
     #endregion
 
     #region 상태 전환 함수
     public void StartGame() => _gameStateMachine.ChangeState(_gameStateFactory.LoadingState);
-    public void ExitGame() => _gameStateMachine.ChangeState(_gameStateFactory.HomeState);
+    public void ReturnToHome() => _gameStateMachine.ChangeState(_gameStateFactory.HomeState);
     #endregion
 }

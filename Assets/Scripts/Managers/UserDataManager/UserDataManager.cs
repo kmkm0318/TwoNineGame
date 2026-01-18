@@ -69,6 +69,7 @@ public class UserDataManager : MonoBehaviour
     }
     #endregion
 
+    #region 데이터 변경
     public void ChangePlayerName(string newName)
     {
         // 사용자 이름 변경
@@ -95,4 +96,5 @@ public class UserDataManager : MonoBehaviour
         // 변경된 데이터 저장
         SaveUserdata();
     }
+    #endregion
 }
