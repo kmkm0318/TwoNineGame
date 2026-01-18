@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -14,6 +14,11 @@ public class NumberUI : MonoBehaviour
     [SerializeField] private TMP_Text _targetMultipleText;
     [SerializeField] private Transform _numberButtonContainer;
     [SerializeField] private NumberButton _numberButtonPrefab;
+    [SerializeField] private float _colorChangeDuration = 0.5f;
+    [SerializeField] private Ease _colorChangeEase = Ease.Linear;
+    [SerializeField] private Color _defaultColor;
+    [SerializeField] private Color _correctColor;
+    [SerializeField] private Color _wrongColor;
 
     #region 오브젝트 풀
     private ObjectPool<NumberButton> _numberButtonPool;
@@ -21,7 +26,7 @@ public class NumberUI : MonoBehaviour
     #endregion
 
     #region 이벤트
-    public event Action<int> OnNumberButtonClicked;
+    public event Action<NumberButton> OnNumberButtonClicked;
     #endregion
 
     #region 초기화
@@ -65,8 +70,11 @@ public class NumberUI : MonoBehaviour
             // 버튼 풀에서 숫자 버튼 가져오기
             var numberButton = _numberButtonPool.Get();
 
-            // 숫자 버튼 초기화
-            numberButton.Init(number);
+            // 색 초기화
+            numberButton.SetColor(_defaultColor, 0f);
+
+            // 숫자 초기화
+            numberButton.SetNumber(number);
 
             // 숫자 버튼 클릭 이벤트 구독
             numberButton.OnNumberButtonClicked += HandleOnNumberButtonClicked;
@@ -89,31 +97,51 @@ public class NumberUI : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// 가운데 숫자 버튼에 포커스 업데이트
-    /// 현재는 사용하지 않음
-    /// </summary>
-    public void UpdateFocus()
+    public void ShowNumberButtonsResultColor(int targetMultiple, Action onComplete = null)
     {
-        // 개수 가져오기
-        int count = _activeNumberButtons.Count;
+        if (_activeNumberButtons.Count == 0)
+        {
+            // 버튼이 없으면 바로 콜백 호출
+            onComplete?.Invoke();
 
-        // 개수가 0 이하일 경우 패스
-        if (count <= 0) return;
+            // 종료
+            return;
+        }
 
-        // 가운데 버튼 계산
-        int middleIndex = count / 2;
+        // 완료된 버튼 개수 추적
+        int completedCount = 0;
+        int totalCount = _activeNumberButtons.Count;
 
-        // 가운데 버튼 선택
-        _activeNumberButtons[middleIndex].Select();
+        // 완료 콜백 함수
+        void onCompleteOnce()
+        {
+            // 완료된 버튼 개수 증가
+            completedCount++;
+
+            if (completedCount >= totalCount)
+            {
+                // 모든 버튼이 완료되었으면 콜백 호출
+                onComplete?.Invoke();
+            }
+        }
+
+        // 모든 숫자 버튼에 대해 실행
+        foreach (var button in _activeNumberButtons)
+        {
+            // 색 설정
+            Color color = button.Number % targetMultiple == 0 ? _correctColor : _wrongColor;
+
+            // 색 변경
+            button.SetColor(color, _colorChangeDuration, _colorChangeEase, onCompleteOnce);
+        }
     }
     #endregion
 
     #region 이벤트 핸들러
-    private void HandleOnNumberButtonClicked(int number)
+    private void HandleOnNumberButtonClicked(NumberButton numberButton)
     {
         // 숫자 버튼 클릭 이벤트 전달
-        OnNumberButtonClicked?.Invoke(number);
+        OnNumberButtonClicked?.Invoke(numberButton);
     }
     #endregion
 }

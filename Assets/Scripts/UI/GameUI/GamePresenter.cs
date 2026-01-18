@@ -38,10 +38,10 @@ public class GamePresenter : MonoBehaviour, IShowHide
 
     private void InitUI()
     {
-        _roundUI.UpdateMaxRound(_roundManager.MaxRound);
-        _roundUI.UpdateRound(_roundManager.CurrentRound);
-        _roundUI.UpdateMaxRoundTime(_roundManager.MaxRoundTime);
-        _roundUI.UpdateRoundTime(_roundManager.CurrentRoundTime);
+        _roundUI.SetRoundMaxValue(_roundManager.MaxRound);
+        _roundUI.SetRoundValue(_roundManager.CurrentRound);
+        _roundUI.SetRoundTimeMaxValue(_roundManager.MaxRoundTime);
+        _roundUI.SetRoundTimeValue(_roundManager.CurrentRoundTime);
 
         _numberUI.Init();
         _numberUI.UpdateTargetMultipleText(_numberManager.CurrentTargetMultiple);
@@ -52,10 +52,10 @@ public class GamePresenter : MonoBehaviour, IShowHide
     #region 이벤트 구독, 해제
     private void RegisterEvents()
     {
-        _roundManager.OnMaxRoundChanged += _roundUI.UpdateMaxRound;
-        _roundManager.OnCurrentRoundChanged += _roundUI.UpdateRound;
-        _roundManager.OnMaxRoundTimeChanged += _roundUI.UpdateMaxRoundTime;
-        _roundManager.OnCurrentRoundTimeChanged += _roundUI.UpdateRoundTime;
+        _roundManager.OnMaxRoundChanged += _roundUI.SetRoundMaxValue;
+        _roundManager.OnCurrentRoundChanged += _roundUI.SetRoundValue;
+        _roundManager.OnMaxRoundTimeChanged += _roundUI.SetRoundTimeMaxValue;
+        _roundManager.OnCurrentRoundTimeChanged += _roundUI.SetRoundTimeValue;
 
         _numberManager.OnCurrentTargetMultipleChanged += _numberUI.UpdateTargetMultipleText;
         _numberManager.OnNumbersChanged += _numberUI.UpdateNumberButtons;
@@ -65,16 +65,20 @@ public class GamePresenter : MonoBehaviour, IShowHide
 
     private void UnregisterEvents()
     {
-        _roundManager.OnMaxRoundChanged -= _roundUI.UpdateMaxRound;
-        _roundManager.OnCurrentRoundChanged -= _roundUI.UpdateRound;
-        _roundManager.OnMaxRoundTimeChanged -= _roundUI.UpdateMaxRoundTime;
-        _roundManager.OnCurrentRoundTimeChanged -= _roundUI.UpdateRoundTime;
+        _roundManager.OnMaxRoundChanged -= _roundUI.SetRoundMaxValue;
+        _roundManager.OnCurrentRoundChanged -= _roundUI.SetRoundValue;
+        _roundManager.OnMaxRoundTimeChanged -= _roundUI.SetRoundTimeMaxValue;
+        _roundManager.OnCurrentRoundTimeChanged -= _roundUI.SetRoundTimeValue;
 
         _numberManager.OnCurrentTargetMultipleChanged -= _numberUI.UpdateTargetMultipleText;
         _numberManager.OnNumbersChanged -= _numberUI.UpdateNumberButtons;
 
         _numberUI.OnNumberButtonClicked -= _numberManager.HandleOnNumberButtonClicked;
     }
+    #endregion
+
+    #region UI 함수
+    public void ShowNumberButtonsResultColor(int targetMultiple, Action onComplete = null) => _numberUI.ShowNumberButtonsResultColor(targetMultiple, onComplete);
     #endregion
 
     #region Show, Hide

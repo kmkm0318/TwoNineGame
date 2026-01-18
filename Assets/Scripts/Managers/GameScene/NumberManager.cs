@@ -145,10 +145,10 @@ public class NumberManager : MonoBehaviour
     #endregion
 
     #region 이벤트 핸들러
-    public void HandleOnNumberButtonClicked(int number)
+    public void HandleOnNumberButtonClicked(NumberButton numberButton)
     {
         // 숫자가 올바른지 판별
-        if (number % CurrentTargetMultiple == 0)
+        if (numberButton.Number % CurrentTargetMultiple == 0)
         {
             // 올바른 숫자 선택 이벤트 호출
             OnCorrectNumberSelected?.Invoke();
