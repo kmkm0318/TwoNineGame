@@ -6,13 +6,12 @@ using UnityEngine;
 [RequireComponent(typeof(PointerHandler))]
 public class PointerHandlerSFX : UISFX
 {
-    [Header("SFX 타입")]
-    [SerializeField] private SFXType _pointerEnterSFXType = SFXType.ButtonHover;
+    [Header("SFX Type")]
+    [SerializeField] private SFXType _pointerEnterSFXType = SFXType.None;
     [SerializeField] private SFXType _pointerExitSFXType = SFXType.None;
     [SerializeField] private SFXType _pointerDownSFXType = SFXType.None;
     [SerializeField] private SFXType _pointerUpSFXType = SFXType.None;
-    [SerializeField] private SFXType _pointerClickSFXType = SFXType.ButtonClick;
-
+    [SerializeField] private SFXType _pointerClickSFXType = SFXType.None;
     #region 레퍼런스
     private PointerHandler _pointerHandler;
     #endregion

@@ -8,8 +8,8 @@ public class ActionButtonSFX : UISFX
 {
     [Header("SFX Type")]
     [SerializeField] private SFXType _normalSFXType = SFXType.None;
-    [SerializeField] private SFXType _highlightedSFXType = SFXType.ButtonHover;
-    [SerializeField] private SFXType _pressedSFXType = SFXType.ButtonClick;
+    [SerializeField] private SFXType _highlightedSFXType = SFXType.None;
+    [SerializeField] private SFXType _pressedSFXType = SFXType.None;
     [SerializeField] private SFXType _disabledSFXType = SFXType.None;
     [SerializeField] private SFXType _selectedSFXType = SFXType.None;
 

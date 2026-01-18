@@ -150,7 +150,8 @@ GameObject:
   - component: {fileID: 4393266232376785310}
   - component: {fileID: 6675849504158119820}
   - component: {fileID: 137877235192761015}
-  - component: {fileID: 4015167764213496944}
+  - component: {fileID: 4077697629173174901}
+  - component: {fileID: 2527449126712460529}
   m_Layer: 5
   m_Name: ActionButton
   m_TagString: Untagged
@@ -292,7 +293,7 @@ MonoBehaviour:
   _pressedAnimationType: 1
   _disabledAnimationType: 1
   _selectedAnimationType: 0
---- !u!114 &4015167764213496944
+--- !u!114 &4077697629173174901
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -301,11 +302,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 2159652953807223943}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00df55f966c294b4aa3a7fffc091bd1e, type: 3}
+  m_Script: {fileID: 11500000, guid: 82b3265a3b4ff1d4ca763c50930d7e86, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ActionButtonSFX
-  _normalSFXType: 0
-  _highlightedSFXType: 6
-  _pressedSFXType: 7
-  _disabledSFXType: 0
-  _selectedSFXType: 0
+  m_EditorClassIdentifier: Assembly-CSharp::PointerHandler
+--- !u!114 &2527449126712460529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2159652953807223943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d487725b672ad484698476d37b633774, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointerHandlerSFX
+  _pointerEnterSFXType: 1
+  _pointerExitSFXType: 0
+  _pointerDownSFXType: 0
+  _pointerUpSFXType: 0
+  _pointerClickSFXType: 2

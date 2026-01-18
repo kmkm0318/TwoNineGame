@@ -19,6 +19,9 @@ public class GameResultState : GameBaseState
 
     public override void OnEnter()
     {
+        // 결과 사운드 재생
+        AudioManager.Instance.PlaySFX(SFXType.Game_Result);
+
         // 점수 계산
         var score = _roundManager.CurrentRound - 1;
 

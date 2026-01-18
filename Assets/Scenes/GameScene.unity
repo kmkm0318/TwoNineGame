@@ -2678,28 +2678,24 @@ MonoBehaviour:
   _sfxAudioSource: {fileID: 1296949036}
   _bgmClips:
     items:
-    - Key: 0
-      Value: {fileID: 0}
-    - Key: 1
-      Value: {fileID: 0}
-    - Key: 2
-      Value: {fileID: 0}
-  _sfxClips:
-    items:
-    - Key: 0
-      Value: {fileID: 0}
     - Key: 1
       Value: {fileID: 0}
     - Key: 2
       Value: {fileID: 0}
     - Key: 3
       Value: {fileID: 0}
+  _sfxClips:
+    items:
+    - Key: 1
+      Value: {fileID: 8300000, guid: 7dd78019f0897a14d858d4acffe05f62, type: 3}
+    - Key: 2
+      Value: {fileID: 8300000, guid: d3a45a57539695048ae6e407f8e5ff89, type: 3}
+    - Key: 3
+      Value: {fileID: 8300000, guid: 9c287a65cfcf55a4ab8474e98305e5a7, type: 3}
     - Key: 4
-      Value: {fileID: 0}
+      Value: {fileID: 8300000, guid: e470b0e96a426c648a89c8c73d04d3c7, type: 3}
     - Key: 5
-      Value: {fileID: 0}
-    - Key: 6
-      Value: {fileID: 0}
+      Value: {fileID: 8300000, guid: 707e170a352b84d41aa0b4a70e1c3645, type: 3}
 --- !u!1 &1527424099
 GameObject:
   m_ObjectHideFlags: 0

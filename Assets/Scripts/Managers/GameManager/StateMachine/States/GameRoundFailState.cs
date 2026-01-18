@@ -17,6 +17,9 @@ public class GameRoundFailState : GameBaseState
 
     public override void OnEnter()
     {
+        // 라운드 실패 사운드 재생
+        AudioManager.Instance.PlaySFX(SFXType.Game_Wrong);
+
         // 숫자 버튼의 색 변경 애니메이션 실행
         _gamePresenter.ShowNumberButtonsResultColor(_numberManager.CurrentTargetMultiple, () =>
         {

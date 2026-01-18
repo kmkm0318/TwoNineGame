@@ -52,9 +52,6 @@ MonoBehaviour:
   _button: {fileID: 651914928995096336}
   _background: {fileID: 7588975150037489922}
   _numberText: {fileID: 5255636352031247344}
-  _defaultColor: {r: 0.5, g: 0.5, b: 1, a: 1}
-  _correctColor: {r: 0.5019608, g: 1, b: 0.5019608, a: 1}
-  _wrongColor: {r: 1, g: 0.5019608, b: 0.5019608, a: 1}
 --- !u!1001 &6172588925279346844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78,6 +75,10 @@ PrefabInstance:
     - target: {fileID: 2159652953807223943, guid: 9a033a0f7e69daf44addc2026c29269c, type: 3}
       propertyPath: m_Name
       value: ActionButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2527449126712460529, guid: 9a033a0f7e69daf44addc2026c29269c, type: 3}
+      propertyPath: _pointerClickSFXType
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4393266232376785310, guid: 9a033a0f7e69daf44addc2026c29269c, type: 3}
       propertyPath: m_Color.b
