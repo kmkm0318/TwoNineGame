@@ -23,6 +23,9 @@ public class GameLoadingState : GameBaseState
         // 숫자 매니저 초기화
         _numberManager.Reset();
 
+        // BGM 재생
+        AudioManager.Instance.PlayBGM(BGMType.Playing);
+
         // 라운드 시작 상태로 전환
         StateMachine.ChangeState(Factory.RoundStartState);
     }

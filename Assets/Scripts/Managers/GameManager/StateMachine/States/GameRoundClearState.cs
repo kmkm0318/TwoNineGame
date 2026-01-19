@@ -28,6 +28,9 @@ public class GameRoundClearState : GameBaseState
         // 라운드 클리어 사운드 재생
         AudioManager.Instance.PlaySFX(SFXType.Game_Correct, pitch, 0f);
 
+        // BGM 피치 조정
+        AudioManager.Instance.SetBGMPitch(pitch);
+
         // 숫자 버튼의 색 변경 애니메이션 실행
         _gamePresenter.ShowNumberButtonsResultColor(_numberManager.CurrentTargetMultiple, () =>
         {

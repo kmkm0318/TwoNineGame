@@ -15,6 +15,9 @@ public class GameHomeState : GameBaseState
 
     public override void OnEnter()
     {
+        // BGM 재생
+        AudioManager.Instance.PlayBGM(BGMType.Home);
+
         // 홈 UI 즉시 표시
         _homePresenter.Show(0f);
     }

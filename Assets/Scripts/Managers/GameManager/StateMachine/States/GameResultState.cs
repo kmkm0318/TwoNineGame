@@ -19,6 +19,9 @@ public class GameResultState : GameBaseState
 
     public override void OnEnter()
     {
+        // BGM 피치 초기화
+        AudioManager.Instance.SetBGMPitch(1f);
+
         // 결과 사운드 재생
         AudioManager.Instance.PlaySFX(SFXType.Game_Result);
 

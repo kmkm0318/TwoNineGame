@@ -1,3 +1,5 @@
+using System;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -71,8 +73,10 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (!_bgmClips.TryGetValue(bgmType, out AudioClip bgmClip) || bgmClip == null)
         {
-            // 클립이 없으면 경고 로그 출력
             $"{bgmType} BGM 클립이 존재하지 않습니다.".LogWarning();
+
+            // 클립이 없으면 BGM 정지
+            StopBGM();
         }
         else
         {
@@ -91,6 +95,15 @@ public class AudioManager : Singleton<AudioManager>
 
         // 재생
         _bgmAudioSource.Play();
+    }
+
+    public void StopBGM()
+    {
+        // BGM 정지
+        _bgmAudioSource.Stop();
+
+        // 클립 해제
+        _bgmAudioSource.clip = null;
     }
 
     public void PlaySFX(SFXType sfxType, float pitch = 1f, float randomPitchRange = 0.1f)
@@ -112,7 +125,7 @@ public class AudioManager : Singleton<AudioManager>
         // 랜덤 피치 적용
         if (randomPitchRange != 0f)
         {
-            pitch += Random.Range(-randomPitchRange, randomPitchRange);
+            pitch += UnityEngine.Random.Range(-randomPitchRange, randomPitchRange);
         }
 
         // 피치 적용
@@ -125,6 +138,7 @@ public class AudioManager : Singleton<AudioManager>
 
     #region 오디오 설정
     public void SetBGMVolume(float volume) => _defaultAudioMixer.SetFloat(BGM_VOLUME_PARAM, VolumeToDecibel(volume));
+    public void SetBGMPitch(float pitch) => _bgmAudioSource.pitch = pitch;
     public void SetSFXVolume(float volume) => _defaultAudioMixer.SetFloat(SFX_VOLUME_PARAM, VolumeToDecibel(volume));
     #endregion
 
