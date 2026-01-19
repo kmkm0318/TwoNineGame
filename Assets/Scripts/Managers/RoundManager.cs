@@ -49,7 +49,7 @@ public class RoundManager : MonoBehaviour
         IsRoundActive = false;
 
         // 목표 점수 설정
-        UpdateTargetScore(_userDataManager.UserData.HighScore);
+        UpdateTargetScore(_userDataManager.UserData.BestScore);
 
         // 현재 점수 설정
         CurrentScore = 0;

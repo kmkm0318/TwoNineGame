@@ -7,11 +7,11 @@ using System;
 public class UserData
 {
     public string UserName;
-    public int HighScore;
+    public int BestScore;
 
     public UserData()
     {
         UserName = "Unknown";
-        HighScore = 0;
+        BestScore = 0;
     }
 }

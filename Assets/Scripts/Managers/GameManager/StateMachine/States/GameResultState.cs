@@ -29,7 +29,7 @@ public class GameResultState : GameBaseState
         var score = _roundManager.CurrentScore;
 
         // 최고 점수 갱신 시도
-        _userDataManager.UpdateHighScore(score);
+        _userDataManager.UpdateBestScore(score);
 
         // 점수 결과 설정
         _resultPresenter.SetScore(score);

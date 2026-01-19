@@ -17,7 +17,7 @@ public class UserDataManager : MonoBehaviour
 
     #region 이벤트
     public event Action<string> OnUserNameChanged;
-    public event Action<int> OnHighScoreChanged;
+    public event Action<int> OnBestScoreChanged;
     #endregion
 
     private string _saveFilePath;
@@ -82,16 +82,16 @@ public class UserDataManager : MonoBehaviour
         SaveUserdata();
     }
 
-    public void UpdateHighScore(int newScore)
+    public void UpdateBestScore(int newScore)
     {
         // 새로운 점수가 기존 최고 점수보다 낮거나 같으면 변경하지 않음
-        if (newScore <= UserData.HighScore) return;
+        if (newScore <= UserData.BestScore) return;
 
         // 최고 점수 변경
-        UserData.HighScore = newScore;
+        UserData.BestScore = newScore;
 
         // 이벤트 호출
-        OnHighScoreChanged?.Invoke(newScore);
+        OnBestScoreChanged?.Invoke(newScore);
 
         // 변경된 데이터 저장
         SaveUserdata();
