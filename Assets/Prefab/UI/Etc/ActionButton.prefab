@@ -148,9 +148,9 @@ GameObject:
   - component: {fileID: 6509766360004286298}
   - component: {fileID: 8822767259601581726}
   - component: {fileID: 4393266232376785310}
-  - component: {fileID: 6675849504158119820}
-  - component: {fileID: 137877235192761015}
+  - component: {fileID: 5520602116053308339}
   - component: {fileID: 4077697629173174901}
+  - component: {fileID: 7607688541196390525}
   - component: {fileID: 2527449126712460529}
   m_Layer: 5
   m_Name: ActionButton
@@ -217,7 +217,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6675849504158119820
+--- !u!114 &5520602116053308339
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -226,9 +226,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2159652953807223943}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3adfffab3826f8543a7a0ac24c1f90fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ActionButton
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
     m_Mode: 0
     m_WrapAround: 0
@@ -261,7 +261,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &137877235192761015
+--- !u!114 &4077697629173174901
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -270,9 +270,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 2159652953807223943}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd9c80327e19f514ea797b177129e0f7, type: 3}
+  m_Script: {fileID: 11500000, guid: 82b3265a3b4ff1d4ca763c50930d7e86, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ActionButtonAnimation
+  m_EditorClassIdentifier: Assembly-CSharp::PointerHandler
+--- !u!114 &7607688541196390525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2159652953807223943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52107fc0b061903448a7c521a8ef811b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointerHandlerAnimation
   _originalScale: 1
   _positiveScale: 1.1
   _negativeScale: 0.9
@@ -288,23 +300,11 @@ MonoBehaviour:
   _punchRotationZVibrato: 10
   _punchRotationZElasticity: 1
   _punchRotationZEase: 0
-  _normalAnimationType: 1
-  _highlightedAnimationType: 1
-  _pressedAnimationType: 1
-  _disabledAnimationType: 1
-  _selectedAnimationType: 0
---- !u!114 &4077697629173174901
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2159652953807223943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82b3265a3b4ff1d4ca763c50930d7e86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PointerHandler
+  _enterAnimationType: 1
+  _exitAnimationType: 1
+  _downAnimationType: 1
+  _upAnimationType: 1
+  _clickAnimationType: 1
 --- !u!114 &2527449126712460529
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -30,10 +30,10 @@ public class PointerHandlerAnimation : UIAnimation
         }
 
         // 포인터 이벤트에 애니메이션 재생 메서드 등록
-        _pointerHandler.OnPointerEntered += () => PlayAnimation(_enterAnimationType, true);
-        _pointerHandler.OnPointerExited += () => PlayAnimation(_exitAnimationType, false);
-        _pointerHandler.OnPointerDowned += () => PlayAnimation(_downAnimationType, false, true);
-        _pointerHandler.OnPointerUpped += () => PlayAnimation(_upAnimationType, false);
-        _pointerHandler.OnPointerClicked += () => PlayAnimation(_clickAnimationType, false);
+        _pointerHandler.OnPointerEntered += () => PlayAnimation(_enterAnimationType, UIAnimationState.Positive);
+        _pointerHandler.OnPointerExited += () => PlayAnimation(_exitAnimationType, UIAnimationState.Normal);
+        _pointerHandler.OnPointerDowned += () => PlayAnimation(_downAnimationType, UIAnimationState.Negative);
+        _pointerHandler.OnPointerUpped += () => PlayAnimation(_upAnimationType, UIAnimationState.Normal);
+        _pointerHandler.OnPointerClicked += () => PlayAnimation(_clickAnimationType, UIAnimationState.Normal);
     }
 }

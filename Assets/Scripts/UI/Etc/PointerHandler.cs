@@ -16,29 +16,10 @@ public class PointerHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     #endregion
 
     #region 인터페이스 구현
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        OnPointerClicked?.Invoke();
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        OnPointerDowned?.Invoke();
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        OnPointerEntered?.Invoke();
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        OnPointerExited?.Invoke();
-    }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        OnPointerUpped?.Invoke();
-    }
+    public void OnPointerClick(PointerEventData eventData) => OnPointerClicked?.Invoke();
+    public void OnPointerDown(PointerEventData eventData) => OnPointerDowned?.Invoke();
+    public void OnPointerEnter(PointerEventData eventData) => OnPointerEntered?.Invoke();
+    public void OnPointerExit(PointerEventData eventData) => OnPointerExited?.Invoke();
+    public void OnPointerUp(PointerEventData eventData) => OnPointerUpped?.Invoke();
     #endregion
 }

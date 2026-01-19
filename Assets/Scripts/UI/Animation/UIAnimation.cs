@@ -36,24 +36,24 @@ public abstract class UIAnimation : MonoBehaviour
     #endregion
 
     #region 애니메이션 재생
-    protected void PlayAnimation(UIAnimationType animationType, bool isPositive, bool isNegative = false)
+    protected void PlayAnimation(UIAnimationType type, UIAnimationState state)
     {
         // 현재 재생 중인 애니메이션이 있으면 종료
         _currentTween?.Kill();
 
         // 애니메이션 타입에 따른 분기 처리
-        switch (animationType)
+        switch (type)
         {
             case UIAnimationType.Scale:
-                float targetScale = isPositive ? _positiveScale : isNegative ? _negativeScale : _originalScale;
+                float targetScale = state == UIAnimationState.Positive ? _positiveScale : state == UIAnimationState.Negative ? _negativeScale : _originalScale;
                 PlayScaleAnimation(targetScale, _scaleDuration, _scaleEase);
                 break;
             case UIAnimationType.MoveY:
-                float targetPositionY = isPositive ? _positivePositionY : isNegative ? _negativePositionY : _originalPositionY;
+                float targetPositionY = state == UIAnimationState.Positive ? _positivePositionY : state == UIAnimationState.Negative ? _negativePositionY : _originalPositionY;
                 PlayMoveYAnimation(targetPositionY, _moveYDuration, _moveYEase);
                 break;
             case UIAnimationType.PunchRotationZ:
-                float angle = isPositive ? _punchRotationZAngle : -_punchRotationZAngle;
+                float angle = state == UIAnimationState.Positive ? _punchRotationZAngle : -_punchRotationZAngle;
                 PlayPunchRotationZAnimation(angle, _punchRotationZDuration, _punchRotationZVibrato, _punchRotationZElasticity, _punchRotationZEase);
                 break;
             case UIAnimationType.None:

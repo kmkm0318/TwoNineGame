@@ -11,6 +11,7 @@ public class HomePresenter : MonoBehaviour, IShowHide
 
     #region 레퍼런스
     private GameManager _gameManager;
+    private SettingsPresenter _settingsPresenter;
     #endregion
 
     private void OnDestroy()
@@ -20,10 +21,11 @@ public class HomePresenter : MonoBehaviour, IShowHide
     }
 
     #region 초기화
-    public void Init(GameManager gameManager)
+    public void Init(GameManager gameManager, SettingsPresenter settingsPresenter)
     {
         // 레퍼런스 할당
         _gameManager = gameManager;
+        _settingsPresenter = settingsPresenter;
 
         // UI 이벤트 구독
         RegisterEvents();
@@ -63,13 +65,14 @@ public class HomePresenter : MonoBehaviour, IShowHide
 
     private void HandleSettingsButtonClicked()
     {
-        // TODO: 설정 UI 표시
+        // 설정 UI 표시
+        _settingsPresenter.Show(0f);
     }
 
     private void HandleExitButtonClicked()
     {
-        // 애플리케이션 종료
-        Application.Quit();
+        // 게임 종료
+        _gameManager.ExitGame();
     }
     #endregion
 

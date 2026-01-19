@@ -1,6 +1,6 @@
 
 /// <summary>
-/// UI 애니메이션 타입 열거형
+/// UI 애니메이션 타입 Enum
 /// </summary>
 public enum UIAnimationType
 {

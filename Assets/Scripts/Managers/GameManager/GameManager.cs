@@ -59,17 +59,20 @@ public class GameManager : MonoBehaviour
     private void InitManagers()
     {
         // 각 매니저 초기화
-        _gameUIManager.Init(this);
         _roundManager.Init(_userDataManager);
         _numberManager.Init();
         _userDataManager.Init();
         _settingsManager.Init();
         AudioManager.Instance.Init(_settingsManager);
+
+        // UI 매니저는 가장 마지막에 초기화
+        _gameUIManager.Init(this);
     }
     #endregion
 
     #region 상태 전환 함수
     public void StartGame() => _gameStateMachine.ChangeState(_gameStateFactory.LoadingState);
     public void ReturnToHome() => _gameStateMachine.ChangeState(_gameStateFactory.HomeState);
+    public void ExitGame() => Application.Quit();
     #endregion
 }
