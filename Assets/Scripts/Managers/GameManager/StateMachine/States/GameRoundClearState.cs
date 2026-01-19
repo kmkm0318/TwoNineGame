@@ -19,11 +19,11 @@ public class GameRoundClearState : GameBaseState
 
     public override void OnEnter()
     {
-        // 라운드 가져오기
-        var round = _roundManager.CurrentRound;
+        // 점수 가져오기
+        var score = _roundManager.CurrentScore;
 
         // 피치 계산
-        var pitch = 1f + (round - 1) * 0.029f;
+        var pitch = 1f + score * 0.029f;
 
         // 라운드 클리어 사운드 재생
         AudioManager.Instance.PlaySFX(SFXType.Game_Correct, pitch, 0f);

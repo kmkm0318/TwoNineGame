@@ -25,8 +25,8 @@ public class GameResultState : GameBaseState
         // 결과 사운드 재생
         AudioManager.Instance.PlaySFX(SFXType.Game_Result);
 
-        // 점수 계산
-        var score = _roundManager.CurrentRound - 1;
+        // 점수 가져오기
+        var score = _roundManager.CurrentScore;
 
         // 최고 점수 갱신 시도
         _userDataManager.UpdateHighScore(score);

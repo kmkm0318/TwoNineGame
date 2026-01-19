@@ -7,7 +7,7 @@ using UnityEngine;
 public class RoundManager : MonoBehaviour
 {
     #region 상수
-    private const int INITIAL_MAX_ROUND = 29;
+    private const int INITIAL_TARGET_SCORE = 29;
     #endregion
 
     [Header("Round Settings")]
@@ -21,15 +21,15 @@ public class RoundManager : MonoBehaviour
 
     #region 라운드 변수
     public bool IsRoundActive { get; set; } = false;
-    public int MaxRound { get; private set; } = INITIAL_MAX_ROUND;
-    public int CurrentRound { get; private set; } = 0;
+    public int TargetScore { get; private set; } = INITIAL_TARGET_SCORE;
+    public int CurrentScore { get; private set; } = 0;
     public float MaxRoundTime { get; private set; } = 0f;
     public float CurrentRoundTime { get; private set; } = 0f;
     #endregion
 
     #region 이벤트
-    public event Action<int> OnMaxRoundChanged;
-    public event Action<int> OnCurrentRoundChanged;
+    public event Action<int> OnTargetScoreChanged;
+    public event Action<int> OnCurrentScoreChanged;
     public event Action<float> OnMaxRoundTimeChanged;
     public event Action<float> OnCurrentRoundTimeChanged;
     public event Action OnRoundCleared;
@@ -48,14 +48,14 @@ public class RoundManager : MonoBehaviour
         // 라운드 비활성화
         IsRoundActive = false;
 
-        // 최대 라운드 설정
-        UpdateMaxRound(_userDataManager.UserData.HighScore);
+        // 목표 점수 설정
+        UpdateTargetScore(_userDataManager.UserData.HighScore);
 
-        // 현재 라운드 설정
-        CurrentRound = 0;
+        // 현재 점수 설정
+        CurrentScore = 0;
 
         // 이벤트 호출
-        OnCurrentRoundChanged?.Invoke(CurrentRound);
+        OnCurrentScoreChanged?.Invoke(CurrentScore);
 
         // 현재 라운드 시간 설정
         CurrentRoundTime = 0f;
@@ -88,14 +88,8 @@ public class RoundManager : MonoBehaviour
 
     public void StartNextRound()
     {
-        // 라운드 증가
-        CurrentRound++;
-
-        // 라운드 변경 이벤트 호출
-        OnCurrentRoundChanged?.Invoke(CurrentRound);
-
         // 라운드 시간 계산
-        float newRoundTime = _roundTimeMax - _roundTimeDecreaseAmount * (CurrentRound - 1);
+        float newRoundTime = _roundTimeMax - _roundTimeDecreaseAmount * (CurrentScore - 1);
 
         // 최소 라운드 시간 적용
         newRoundTime = Mathf.Max(newRoundTime, _roundTimeMin);
@@ -124,6 +118,12 @@ public class RoundManager : MonoBehaviour
         // 라운드 비활성화
         IsRoundActive = false;
 
+        // 현재 점수 증가
+        CurrentScore++;
+
+        // 이벤트 호출
+        OnCurrentScoreChanged?.Invoke(CurrentScore);
+
         // 라운드 클리어 이벤트 호출
         OnRoundCleared?.Invoke();
     }
@@ -142,16 +142,16 @@ public class RoundManager : MonoBehaviour
     #endregion
 
     #region 변수 변경
-    public void UpdateMaxRound(int newMaxRound)
+    private void UpdateTargetScore(int newTargetScore)
     {
-        // 새로운 최대 라운드가 기존 최대 라운드보다 작거나 같으면 변경하지 않음
-        if (newMaxRound <= MaxRound) return;
+        // 새로운 목표 점수가 기존 목표 점수보다 작거나 같으면 변경하지 않음
+        if (newTargetScore <= TargetScore) return;
 
-        // 최대 라운드 변경
-        MaxRound = newMaxRound;
+        // 목표 점수 변경
+        TargetScore = newTargetScore;
 
         // 이벤트 호출
-        OnMaxRoundChanged?.Invoke(MaxRound);
+        OnTargetScoreChanged?.Invoke(TargetScore);
     }
     #endregion
 }

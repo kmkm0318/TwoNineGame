@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 5910145}
   - component: {fileID: 5910144}
   m_Layer: 5
-  m_Name: RoundNameText
+  m_Name: ScoreNameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,7 +214,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ROUND
+  m_text: SCORE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 53f9cb2dcf76c2549b59c28ca3f22e1f, type: 2}
   m_sharedMaterial: {fileID: -5293450679239380251, guid: 53f9cb2dcf76c2549b59c28ca3f22e1f, type: 2}
@@ -1212,7 +1212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7df02ca6ee304a848b5a227468a9288b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoundUI
-  _roundProgressBar: {fileID: 1708045295}
+  _scoreProgressBar: {fileID: 1708045295}
   _roundTimeProgressBar: {fileID: 1332732325343557050}
 --- !u!1 &378572442
 GameObject:
@@ -4530,7 +4530,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4780248773295344722, guid: e144a63d2b609354f9c5fe9ae74961ee, type: 3}
       propertyPath: m_Name
-      value: RoundProgressBar
+      value: ScoreProgressBar
       objectReference: {fileID: 0}
     - target: {fileID: 5970043985108867328, guid: e144a63d2b609354f9c5fe9ae74961ee, type: 3}
       propertyPath: m_Pivot.x

@@ -38,8 +38,8 @@ public class GamePresenter : MonoBehaviour, IShowHide
 
     private void InitUI()
     {
-        _roundUI.SetRoundMaxValue(_roundManager.MaxRound);
-        _roundUI.SetRoundValue(_roundManager.CurrentRound);
+        _roundUI.SetScoreMaxValue(_roundManager.TargetScore);
+        _roundUI.SetScoreValue(_roundManager.CurrentScore);
         _roundUI.SetRoundTimeMaxValue(_roundManager.MaxRoundTime);
         _roundUI.SetRoundTimeValue(_roundManager.CurrentRoundTime);
 
@@ -52,8 +52,8 @@ public class GamePresenter : MonoBehaviour, IShowHide
     #region 이벤트 구독, 해제
     private void RegisterEvents()
     {
-        _roundManager.OnMaxRoundChanged += _roundUI.SetRoundMaxValue;
-        _roundManager.OnCurrentRoundChanged += _roundUI.SetRoundValue;
+        _roundManager.OnTargetScoreChanged += _roundUI.SetScoreMaxValue;
+        _roundManager.OnCurrentScoreChanged += _roundUI.SetScoreValue;
         _roundManager.OnMaxRoundTimeChanged += _roundUI.SetRoundTimeMaxValue;
         _roundManager.OnCurrentRoundTimeChanged += _roundUI.SetRoundTimeValue;
 
@@ -66,8 +66,8 @@ public class GamePresenter : MonoBehaviour, IShowHide
 
     private void UnregisterEvents()
     {
-        _roundManager.OnMaxRoundChanged -= _roundUI.SetRoundMaxValue;
-        _roundManager.OnCurrentRoundChanged -= _roundUI.SetRoundValue;
+        _roundManager.OnTargetScoreChanged -= _roundUI.SetScoreMaxValue;
+        _roundManager.OnCurrentScoreChanged -= _roundUI.SetScoreValue;
         _roundManager.OnMaxRoundTimeChanged -= _roundUI.SetRoundTimeMaxValue;
         _roundManager.OnCurrentRoundTimeChanged -= _roundUI.SetRoundTimeValue;
 
