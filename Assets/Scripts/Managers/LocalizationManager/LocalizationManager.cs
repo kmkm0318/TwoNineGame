@@ -10,7 +10,7 @@ public class LocalizationManager : Singleton<LocalizationManager>
     [SerializeField] private LocalizationTableData _localizationTableData;
 
     #region 데이터
-    public LanguageType CurrentLanguage { get; private set; } = LanguageType.English;
+    public LanguageType CurrentLanguage { get; private set; } = LanguageType.Korean;
     #endregion
 
     #region 이벤트

@@ -2,20 +2,25 @@ using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// 로컬라이즈된 텍스트 컴포넌트
+/// 텍스트를 로컬라이즈하는 컴포넌트
 /// </summary>
-public class LocalizedText : TMP_Text
+[RequireComponent(typeof(TMP_Text))]
+public class LocalizedText : MonoBehaviour
 {
-    [Header("UI Components")]
-    [SerializeField] private TMP_Text _text;
-
     [Header("Localization Key")]
     [SerializeField] private string _localizationKey;
 
-    protected override void OnEnable()
+    #region 레퍼런스
+    private TMP_Text _text;
+    #endregion
+
+    private void Start()
     {
-        // 기본 OnEnable 호출
-        base.OnEnable();
+        // 레퍼런스 초기화
+        if (_text == null) _text = GetComponent<TMP_Text>();
+
+        // null 체크
+        if (_text == null) return;
 
         // 언어 변경 이벤트 구독
         LocalizationManager.Instance.OnLanguageChanged += UpdateLocalizedText;
@@ -24,11 +29,8 @@ public class LocalizedText : TMP_Text
         UpdateLocalizedText(LocalizationManager.Instance.CurrentLanguage);
     }
 
-    protected override void OnDisable()
+    private void OnDestroy()
     {
-        // 기본 OnDisable 호출
-        base.OnDisable();
-
         // 언어 변경 이벤트 구독 해제
         LocalizationManager.Instance.OnLanguageChanged -= UpdateLocalizedText;
     }

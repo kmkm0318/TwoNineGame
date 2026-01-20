@@ -34,3 +34,5 @@ MonoBehaviour:
       Value: TIME
     - Key: UI_Restart
       Value: RESTART
+    - Key: UI_Close
+      Value: CLOSE
