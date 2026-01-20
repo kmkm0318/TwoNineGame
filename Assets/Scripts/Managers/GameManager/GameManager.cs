@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
         _userDataManager.Init();
         _settingsManager.Init();
         AudioManager.Instance.Init(_settingsManager);
+        LocalizationManager.Instance.Init(_settingsManager);
 
         // UI 매니저는 가장 마지막에 초기화
         _gameUIManager.Init(this);

@@ -40,6 +40,7 @@ public class SettingsPresenter : MonoBehaviour, IShowHide
         // 현재 설정값으로 UI 업데이트
         _settingsUI.SetBGMVolume(data.BGMVolume);
         _settingsUI.SetSFXVolume(data.SFXVolume);
+        _settingsUI.SetLanguage(data.Language);
     }
     #endregion
 
@@ -49,11 +50,13 @@ public class SettingsPresenter : MonoBehaviour, IShowHide
         // 설정 변경 이벤트 구독
         _settingsManager.OnBGMVolumeChanged += _settingsUI.SetBGMVolume;
         _settingsManager.OnSFXVolumeChanged += _settingsUI.SetSFXVolume;
+        _settingsManager.OnLanguageChanged += _settingsUI.SetLanguage;
 
         // 설정 UI 변경 이벤트 구독
         _settingsUI.OnCloseButtonClicked += HandleOnCloseButtonClicked;
         _settingsUI.OnBGMButtonClicked += _settingsManager.ChangeBGMVolume;
         _settingsUI.OnSFXButtonClicked += _settingsManager.ChangeSFXVolume;
+        _settingsUI.OnLanguageButtonClicked += _settingsManager.ChangeLanguage;
     }
 
     private void UnregisterEvents()
@@ -61,11 +64,13 @@ public class SettingsPresenter : MonoBehaviour, IShowHide
         // 설정 변경 이벤트 구독 해제
         _settingsManager.OnBGMVolumeChanged -= _settingsUI.SetBGMVolume;
         _settingsManager.OnSFXVolumeChanged -= _settingsUI.SetSFXVolume;
+        _settingsManager.OnLanguageChanged -= _settingsUI.SetLanguage;
 
         // 설정 UI 변경 이벤트 구독 해제
         _settingsUI.OnCloseButtonClicked -= HandleOnCloseButtonClicked;
         _settingsUI.OnBGMButtonClicked -= _settingsManager.ChangeBGMVolume;
         _settingsUI.OnSFXButtonClicked -= _settingsManager.ChangeSFXVolume;
+        _settingsUI.OnLanguageButtonClicked -= _settingsManager.ChangeLanguage;
     }
     #endregion
 

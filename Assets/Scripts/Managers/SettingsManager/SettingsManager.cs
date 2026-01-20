@@ -28,6 +28,7 @@ public class SettingsManager : MonoBehaviour
     #region 이벤트
     public event Action<float> OnBGMVolumeChanged;
     public event Action<float> OnSFXVolumeChanged;
+    public event Action<LanguageType> OnLanguageChanged;
     #endregion
 
     #region 초기화
@@ -76,7 +77,7 @@ public class SettingsManager : MonoBehaviour
     }
     #endregion
 
-    #region 데이터 변경
+    #region BGM 변경
     public void ChangeBGMVolume(bool increase)
     {
         // 볼륨 계산
@@ -97,7 +98,9 @@ public class SettingsManager : MonoBehaviour
         // 설정 저장
         SaveSettings();
     }
+    #endregion
 
+    #region SFX 변경
     public void ChangeSFXVolume(bool increase)
     {
         // 볼륨 계산
@@ -120,6 +123,39 @@ public class SettingsManager : MonoBehaviour
     }
     #endregion
 
+    public void ChangeLanguage(bool increase)
+    {
+        // 현재 인덱스 계산
+        int currentIndex = (int)SettingsData.Language;
+
+        // 인덱스 변경
+        currentIndex += increase ? 1 : -1;
+
+        // 개수 가져오기
+        int count = Enum.GetValues(typeof(LanguageType)).Length;
+
+        // 최대값을 넘으면 0
+        if (currentIndex >= count) currentIndex = 0;
+
+        // 0 미만이면 최대값
+        if (currentIndex < 0) currentIndex = count - 1;
+
+        // 언어 설정
+        SetLanguage((LanguageType)currentIndex);
+    }
+
+    public void SetLanguage(LanguageType language)
+    {
+        // 데이터 변경
+        SettingsData.Language = language;
+
+        // 이벤트 호출
+        OnLanguageChanged?.Invoke(language);
+
+        // 설정 저장
+        SaveSettings();
+    }
+
     #region 계산
     private float GetNewVolume(float oldVolume, bool increase)
     {
@@ -129,8 +165,11 @@ public class SettingsManager : MonoBehaviour
         // 볼륨 변경
         currentVolume += increase ? _volumeStep : -_volumeStep;
 
-        // 범위 제한
-        currentVolume = Mathf.Clamp(currentVolume, 0, _maxVolume);
+        // 최대값을 넘으면 0
+        if (currentVolume > _maxVolume) currentVolume = 0;
+
+        // 0 미만이면 최대값
+        if (currentVolume < 0) currentVolume = _maxVolume;
 
         // 0~1 범위로 변환
         float newVolume = currentVolume / (float)_maxVolume;

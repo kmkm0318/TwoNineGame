@@ -9,12 +9,50 @@ public class LocalizationManager : Singleton<LocalizationManager>
     [Header("Localization Table Data")]
     [SerializeField] private LocalizationTableData _localizationTableData;
 
-    #region 데이터
+    #region 변수
     public LanguageType CurrentLanguage { get; private set; } = LanguageType.Korean;
+    #endregion
+
+    #region 레퍼런스
+    private SettingsManager _settingsManager;
     #endregion
 
     #region 이벤트
     public event Action<LanguageType> OnLanguageChanged;
+    #endregion
+
+    private void OnDestroy()
+    {
+        // 이벤트 해제
+        UnregisterEvents();
+    }
+
+    #region 초기화
+    public void Init(SettingsManager settingsManager)
+    {
+        // 레퍼런스 설정
+        _settingsManager = settingsManager;
+
+        // 이벤트 등록
+        RegisterEvents();
+
+        // 초기 언어 설정
+        SetLanguage(_settingsManager.SettingsData.Language);
+    }
+    #endregion
+
+    #region 이벤트 구독, 해제
+    private void RegisterEvents()
+    {
+        // 설정 변경 이벤트 구독
+        _settingsManager.OnLanguageChanged += SetLanguage;
+    }
+
+    private void UnregisterEvents()
+    {
+        // 설정 변경 이벤트 해제
+        _settingsManager.OnLanguageChanged -= SetLanguage;
+    }
     #endregion
 
     public void SetLanguage(LanguageType languageType)

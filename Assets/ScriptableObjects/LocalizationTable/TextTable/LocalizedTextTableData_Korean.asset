@@ -15,11 +15,11 @@ MonoBehaviour:
   _localizedTextTable:
     items:
     - Key: UI_Start
-      Value: "\uC2DC\uC791"
+      Value: "\uC2DC\uC791\uD558\uAE30"
     - Key: UI_Settings
       Value: "\uC124\uC815"
     - Key: UI_Exit
-      Value: "\uC885\uB8CC"
+      Value: "\uB098\uAC00\uAE30"
     - Key: UI_BGM
       Value: "\uBC30\uACBD\uC74C"
     - Key: UI_SFX

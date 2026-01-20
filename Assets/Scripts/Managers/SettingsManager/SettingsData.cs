@@ -10,4 +10,8 @@ public class SettingsData
     public float BGMVolume = 0.5f;
     public float SFXVolume = 0.5f;
     #endregion
+
+    #region 언어 설정
+    public LanguageType Language = LanguageType.Korean;
+    #endregion
 }
