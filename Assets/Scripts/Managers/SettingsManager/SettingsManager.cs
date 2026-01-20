@@ -11,6 +11,12 @@ public class SettingsManager : MonoBehaviour
     private const string SAVE_FILE_NAME = "Settings.json";
     #endregion
 
+    #region 에디터 변수
+    [Header("Volume Settings")]
+    [SerializeField] private int _volumeStep = 1;
+    [SerializeField] private int _maxVolume = 10;
+    #endregion
+
     #region 데이터
     public SettingsData SettingsData { get; private set; }
     #endregion
@@ -71,6 +77,15 @@ public class SettingsManager : MonoBehaviour
     #endregion
 
     #region 데이터 변경
+    public void ChangeBGMVolume(bool increase)
+    {
+        // 볼륨 계산
+        float newVolume = GetNewVolume(SettingsData.BGMVolume, increase);
+
+        // 볼륨 설정
+        SetBGMVolume(newVolume);
+    }
+
     public void SetBGMVolume(float volume)
     {
         // 데이터 변경
@@ -83,6 +98,15 @@ public class SettingsManager : MonoBehaviour
         SaveSettings();
     }
 
+    public void ChangeSFXVolume(bool increase)
+    {
+        // 볼륨 계산
+        float newVolume = GetNewVolume(SettingsData.SFXVolume, increase);
+
+        // 볼륨 설정
+        SetSFXVolume(newVolume);
+    }
+
     public void SetSFXVolume(float volume)
     {
         // 데이터 변경
@@ -93,6 +117,26 @@ public class SettingsManager : MonoBehaviour
 
         // 설정 저장
         SaveSettings();
+    }
+    #endregion
+
+    #region 계산
+    private float GetNewVolume(float oldVolume, bool increase)
+    {
+        // 현재 볼륨을 0~10 범위의 정수로 변환
+        int currentVolume = Mathf.RoundToInt(oldVolume * _maxVolume);
+
+        // 볼륨 변경
+        currentVolume += increase ? _volumeStep : -_volumeStep;
+
+        // 범위 제한
+        currentVolume = Mathf.Clamp(currentVolume, 0, _maxVolume);
+
+        // 0~1 범위로 변환
+        float newVolume = currentVolume / (float)_maxVolume;
+
+        // 반환
+        return newVolume;
     }
     #endregion
 }

@@ -52,8 +52,8 @@ public class SettingsPresenter : MonoBehaviour, IShowHide
 
         // 설정 UI 변경 이벤트 구독
         _settingsUI.OnCloseButtonClicked += HandleOnCloseButtonClicked;
-        _settingsUI.OnBGMVolumeChanged += _settingsManager.SetBGMVolume;
-        _settingsUI.OnSFXVolumeChanged += _settingsManager.SetSFXVolume;
+        _settingsUI.OnBGMButtonClicked += _settingsManager.ChangeBGMVolume;
+        _settingsUI.OnSFXButtonClicked += _settingsManager.ChangeSFXVolume;
     }
 
     private void UnregisterEvents()
@@ -64,8 +64,8 @@ public class SettingsPresenter : MonoBehaviour, IShowHide
 
         // 설정 UI 변경 이벤트 구독 해제
         _settingsUI.OnCloseButtonClicked -= HandleOnCloseButtonClicked;
-        _settingsUI.OnBGMVolumeChanged -= _settingsManager.SetBGMVolume;
-        _settingsUI.OnSFXVolumeChanged -= _settingsManager.SetSFXVolume;
+        _settingsUI.OnBGMButtonClicked -= _settingsManager.ChangeBGMVolume;
+        _settingsUI.OnSFXButtonClicked -= _settingsManager.ChangeSFXVolume;
     }
     #endregion
 
