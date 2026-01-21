@@ -26,6 +26,15 @@ public class GameRoundStartState : GameBaseState
         // 다음 라운드 시작
         _roundManager.StartNextRound();
 
+        // 점수 가져오기
+        var score = _roundManager.CurrentScore;
+
+        // 피치 계산
+        var pitch = AudioManager.Instance.GetPitchByScore(score);
+
+        // BGM 피치 설정
+        AudioManager.Instance.SetBGMPitch(pitch);
+
         // 게임 플레이 상태로 전환
         StateMachine.ChangeState(Factory.PlayingState);
     }

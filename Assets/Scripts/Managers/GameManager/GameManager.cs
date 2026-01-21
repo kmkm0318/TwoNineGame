@@ -24,6 +24,10 @@ public class GameManager : MonoBehaviour
     private GameStateFactory _gameStateFactory;
     #endregion
 
+    #region 변수
+    public bool IsRetried { get; private set; } = false;
+    #endregion
+
     private void Start()
     {
         // 초기화
@@ -72,8 +76,36 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region 상태 전환 함수
-    public void StartGame() => _gameStateMachine.ChangeState(_gameStateFactory.LoadingState);
+    public void StartGame()
+    {
+        // 재시도 여부 초기화
+        IsRetried = false;
+
+        // 게임 시작 상태로 전환
+        _gameStateMachine.ChangeState(_gameStateFactory.LoadingState);
+    }
     public void ReturnToHome() => _gameStateMachine.ChangeState(_gameStateFactory.HomeState);
     public void ExitGame() => Application.Quit();
+    public void RetryGame()
+    {
+        // 재시도가 불가능하면 패스
+        if (!CanRetry()) return;
+
+        // 재시도 상태 설정
+        IsRetried = true;
+
+        // 보상형 광고 보여주기
+        AdManager.Instance.ShowRewardedAd(() =>
+        {
+            // 라운드 시작 상태로 전환
+            _gameStateMachine.ChangeState(_gameStateFactory.RoundStartState);
+        });
+    }
     #endregion
+
+    /// <summary>
+    /// 재시도 가능 여부 확인
+    /// 재시도를 하지 않았고 보상형 광고를 보여줄 수 있을 때 가능
+    /// </summary>
+    public bool CanRetry() => !IsRetried && AdManager.Instance.CanShowRewardedAd();
 }

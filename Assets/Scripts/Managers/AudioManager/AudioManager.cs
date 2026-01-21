@@ -24,6 +24,9 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] private SerializableDictionary<BGMType, AudioClip> _bgmClips;
     [SerializeField] private SerializableDictionary<SFXType, AudioClip> _sfxClips;
 
+    [Header("BGM Pitch Settings")]
+    [SerializeField] private float _pitchIncreasePerScore = 0.029f;
+
     #region 레퍼런스
     private SettingsManager _settingsManager;
     #endregion
@@ -144,5 +147,6 @@ public class AudioManager : Singleton<AudioManager>
 
     #region 계산 함수
     private float VolumeToDecibel(float volume) => Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20f;
+    public float GetPitchByScore(int score) => 1f + score * _pitchIncreasePerScore;
     #endregion
 }

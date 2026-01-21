@@ -36,3 +36,5 @@ MonoBehaviour:
       Value: "\uB2E4\uC2DC\uD558\uAE30"
     - Key: UI_Close
       Value: "\uB2EB\uAE30"
+    - Key: UI_Retry
+      Value: "\uC7AC\uC2DC\uB3C4(AD)"

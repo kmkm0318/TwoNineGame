@@ -42,12 +42,14 @@ public class ResultPresenter : MonoBehaviour, IShowHide
     #region 이벤트 구독, 해제
     private void RegisterEvents()
     {
+        _resultUI.OnRetryButtonClicked += _gameManager.RetryGame;
         _resultUI.OnRestartButtonClicked += _gameManager.StartGame;
         _resultUI.OnExitButtonClicked += _gameManager.ReturnToHome;
     }
 
     private void UnregisterEvents()
     {
+        _resultUI.OnRetryButtonClicked -= _gameManager.RetryGame;
         _resultUI.OnRestartButtonClicked -= _gameManager.StartGame;
         _resultUI.OnExitButtonClicked -= _gameManager.ReturnToHome;
     }
@@ -58,7 +60,14 @@ public class ResultPresenter : MonoBehaviour, IShowHide
     #endregion
 
     #region Show, Hide
-    public void Show(float duration = 0.5f, Action onComplete = null) => _resultUI.Show(duration, onComplete);
+    public void Show(float duration = 0.5f, Action onComplete = null)
+    {
+        // 재시도 버튼 표시 여부 설정
+        _resultUI.ShowRetryButton(_gameManager.CanRetry());
+
+        // 결과 UI 표시
+        _resultUI.Show(duration, onComplete);
+    }
     public void Hide(float duration = 0.5f, Action onComplete = null) => _resultUI.Hide(duration, onComplete);
     #endregion
 }

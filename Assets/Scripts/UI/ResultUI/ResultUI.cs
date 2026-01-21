@@ -11,10 +11,12 @@ public class ResultUI : MonoBehaviour, IShowHide
     [Header("UI Components")]
     [SerializeField] private ShowHideUI _showHideUI;
     [SerializeField] private TMP_Text _scoreText;
+    [SerializeField] private Button _retryButton;
     [SerializeField] private Button _restartButton;
     [SerializeField] private Button _exitButton;
 
     #region 이벤트
+    public event Action OnRetryButtonClicked;
     public event Action OnRestartButtonClicked;
     public event Action OnExitButtonClicked;
     #endregion
@@ -23,6 +25,7 @@ public class ResultUI : MonoBehaviour, IShowHide
     public void Init()
     {
         // 버튼 클릭 이벤트 등록
+        _retryButton.onClick.AddListener(() => OnRetryButtonClicked?.Invoke());
         _restartButton.onClick.AddListener(() => OnRestartButtonClicked?.Invoke());
         _exitButton.onClick.AddListener(() => OnExitButtonClicked?.Invoke());
     }
@@ -30,6 +33,7 @@ public class ResultUI : MonoBehaviour, IShowHide
 
     #region UI 업데이트
     public void UpdateScoreText(int score) => _scoreText.text = score.ToString();
+    public void ShowRetryButton(bool show) => _retryButton.gameObject.SetActive(show);
     #endregion
 
     #region Show, Hide

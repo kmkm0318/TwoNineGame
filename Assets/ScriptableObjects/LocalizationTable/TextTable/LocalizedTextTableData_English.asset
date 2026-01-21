@@ -36,3 +36,5 @@ MonoBehaviour:
       Value: RESTART
     - Key: UI_Close
       Value: CLOSE
+    - Key: UI_Retry
+      Value: RETRY(AD)
