@@ -16,9 +16,6 @@ using UnityEngine;
 /// </summary>
 public class AdManager : Singleton<AdManager>
 {
-    [Header("Ad Settings")]
-    [SerializeField] private Vector2Int _bannerSize = new(1080, 50);
-
     // 모바일 플랫폼인 경우에만 변수 할당
 #if MOBILE_PLATFORM
     #region 광고 ID
