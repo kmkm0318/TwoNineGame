@@ -61,12 +61,9 @@ public class AdManager : Singleton<AdManager>
 
     private void LoadBanners()
     {
-        // 맞춤 사이즈 생성
-        var size = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(Screen.width);
-
         // 배너 광고 생성
-        _topBanner = new BannerView(_topBannerId, size, AdPosition.Top);
-        _bottomBanner = new BannerView(_bottomBannerId, size, AdPosition.Bottom);
+        _topBanner = new BannerView(_topBannerId, AdSize.Banner, AdPosition.Top);
+        _bottomBanner = new BannerView(_bottomBannerId, AdSize.Banner, AdPosition.Bottom);
 
         // 광고 요청 생성
         AdRequest request = new();
