@@ -1,3 +1,8 @@
+// SteamManager에서 정의된 목표 플랫폼과 동일하게 설정
+#if !(UNITY_STANDALONE_WIN || UNITY_STANDALONE_LINUX || UNITY_STANDALONE_OSX || STEAMWORKS_WIN || STEAMWORKS_LIN_OSX)
+#define DISABLESTEAMWORKS
+#endif
+
 using UnityEngine;
 
 /// <summary>
@@ -6,7 +11,6 @@ using UnityEngine;
 /// </summary>
 public class SteamTest : MonoBehaviour
 {
-
 #if !DISABLESTEAMWORKS
     private void Start()
     {
