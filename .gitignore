@@ -76,3 +76,6 @@ crashlytics-build.properties
 
 # 외부 플러그인
 /[Aa]ssets/[Pp]lugins
+
+# 광고 ID
+/[Aa]ssets/[Ss]criptableObjects/[Aa]d[Dd]ata

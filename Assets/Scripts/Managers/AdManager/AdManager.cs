@@ -16,19 +16,14 @@ using UnityEngine;
 /// </summary>
 public class AdManager : Singleton<AdManager>
 {
-    // 모바일 플랫폼인 경우에만 변수 할당
+    [Header("Ad Data")]
+    [SerializeField] private AdData _adData;
+
 #if MOBILE_PLATFORM
     #region 광고 ID
-    #region 실제 광고 ID
-    // private readonly string _topBannerId = "ca-app-pub-7812786645849566/7359192137";
-    // private readonly string _bottomBannerId = "ca-app-pub-7812786645849566/3036803743";
-    // private readonly string _rewardId = "ca-app-pub-7812786645849566/8289130421";
-    #endregion
-    #region 테스트 광고 ID
-    private readonly string _topBannerId = "ca-app-pub-3940256099942544/6300978111";
-    private readonly string _bottomBannerId = "ca-app-pub-3940256099942544/6300978111";
-    private readonly string _rewardId = "ca-app-pub-3940256099942544/5224354917";
-    #endregion
+    private string _topBannerId;
+    private string _bottomBannerId;
+    private string _rewardId;
     #endregion
 
     #region 광고 객체
@@ -45,6 +40,14 @@ public class AdManager : Singleton<AdManager>
         // 싱글톤 초기화
         base.Awake();
 
+        // 광고 ID 할당
+        if (_adData != null)
+        {
+            _topBannerId = _adData.AndroidTopBannerId;
+            _bottomBannerId = _adData.AndroidBottomBannerId;
+            _rewardId = _adData.AndroidRewardId;
+        }
+
         // 모바일 광고 초기화
         MobileAds.Initialize(initStatus =>
         {
@@ -58,9 +61,12 @@ public class AdManager : Singleton<AdManager>
 
     private void LoadBanners()
     {
+        // 맞춤 사이즈 생성
+        var size = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(Screen.width);
+
         // 배너 광고 생성
-        _topBanner = new BannerView(_topBannerId, AdSize.Banner, AdPosition.Top);
-        _bottomBanner = new BannerView(_bottomBannerId, AdSize.Banner, AdPosition.Bottom);
+        _topBanner = new BannerView(_topBannerId, size, AdPosition.Top);
+        _bottomBanner = new BannerView(_bottomBannerId, size, AdPosition.Bottom);
 
         // 광고 요청 생성
         AdRequest request = new();
