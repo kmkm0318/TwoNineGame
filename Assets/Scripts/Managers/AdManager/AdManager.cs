@@ -4,11 +4,11 @@
 #endif
 
 using System;
+using UnityEngine;
 
 // 모바일 플랫폼인 경우만 사용
 #if MOBILE_PLATFORM
 using GoogleMobileAds.Api;
-using UnityEngine;
 #endif
 
 /// <summary>
