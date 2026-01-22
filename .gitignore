@@ -79,3 +79,6 @@ crashlytics-build.properties
 
 # 광고 ID
 /[Aa]ssets/[Ss]criptableObjects/[Aa]d[Dd]ata
+
+# 키스토어
+/[Bb]uild[Cc]onfigs
