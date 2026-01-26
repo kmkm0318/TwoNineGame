@@ -12,6 +12,6 @@ public class SettingsData
     #endregion
 
     #region 언어 설정
-    public LanguageType Language = LanguageType.Korean;
+    public LanguageType Language = LanguageType.English;
     #endregion
 }
