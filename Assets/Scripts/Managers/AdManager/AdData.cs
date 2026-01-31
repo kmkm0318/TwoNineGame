@@ -8,11 +8,6 @@ using UnityEngine;
 public class AdData : ScriptableObject
 {
     [Header("Android Ad IDs")]
-    [SerializeField] private string _androidTopBannerId = "ca-app-pub-3940256099942544/6300978111";
-    [SerializeField] private string _androidBottomBannerId = "ca-app-pub-3940256099942544/6300978111";
     [SerializeField] private string _androidRewardId = "ca-app-pub-3940256099942544/5224354917";
-
-    public string AndroidTopBannerId => _androidTopBannerId;
-    public string AndroidBottomBannerId => _androidBottomBannerId;
     public string AndroidRewardId => _androidRewardId;
 }

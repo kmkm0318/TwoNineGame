@@ -21,14 +21,10 @@ public class AdManager : Singleton<AdManager>
 
 #if MOBILE_PLATFORM
     #region 광고 ID
-    private string _topBannerId;
-    private string _bottomBannerId;
     private string _rewardId;
     #endregion
 
     #region 광고 객체
-    private BannerView _topBanner;
-    private BannerView _bottomBanner;
     private RewardedAd _rewardedAd;
     #endregion
 #endif
@@ -43,34 +39,15 @@ public class AdManager : Singleton<AdManager>
         // 광고 ID 할당
         if (_adData != null)
         {
-            _topBannerId = _adData.AndroidTopBannerId;
-            _bottomBannerId = _adData.AndroidBottomBannerId;
             _rewardId = _adData.AndroidRewardId;
         }
 
         // 모바일 광고 초기화
         MobileAds.Initialize(initStatus =>
         {
-            // 배너 광고 로드
-            LoadBanners();
-
             // 보상형 광고 로드
             LoadRewardedAd();
         });
-    }
-
-    private void LoadBanners()
-    {
-        // 배너 광고 생성
-        _topBanner = new BannerView(_topBannerId, AdSize.Banner, AdPosition.Top);
-        _bottomBanner = new BannerView(_bottomBannerId, AdSize.Banner, AdPosition.Bottom);
-
-        // 광고 요청 생성
-        AdRequest request = new();
-
-        // 배너 광고 로드
-        _topBanner.LoadAd(request);
-        _bottomBanner.LoadAd(request);
     }
 
     private void LoadRewardedAd()
