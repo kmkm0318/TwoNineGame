@@ -172,7 +172,7 @@ public class NumberUI : MonoBehaviour
         if (count <= 0) return;
 
         // 시작 위치 설정
-        var startPosition = numberButton.transform.position;
+        var startPosition = numberButton.LocalPosition;
 
         // 랜덤 시작 각도
         var startAngle = UnityEngine.Random.Range(0f, 360f);
@@ -196,7 +196,7 @@ public class NumberUI : MonoBehaviour
             // 끝 위치 계산
             float endX = startPosition.x + _particleAnimationDistance * Mathf.Cos(radian);
             float endY = startPosition.y + _particleAnimationDistance * Mathf.Sin(radian);
-            var endPosition = new Vector3(endX, endY, startPosition.z);
+            Vector2 endPosition = new(endX, endY);
 
             // 애니메이션 재생
             particle.PlayAnimation(

@@ -7,12 +7,18 @@ using UnityEngine.UI;
 /// <summary>
 /// 숫자 버튼 UI를 담당하는 클래스
 /// </summary>
+[RequireComponent(typeof(RectTransform))]
 public class NumberButton : MonoBehaviour
 {
     [Header("UI Elements")]
     [SerializeField] private Button _button;
     [SerializeField] private Image _background;
     [SerializeField] private TMP_Text _numberText;
+
+    #region 컴포넌트
+    private RectTransform _rectTransform;
+    public Vector2 LocalPosition => _rectTransform.localPosition;
+    #endregion
 
     #region 데이터
     public int Number { get; private set; }
@@ -28,6 +34,9 @@ public class NumberButton : MonoBehaviour
 
     private void Awake()
     {
+        // 컴포넌트 캐싱
+        _rectTransform = GetComponent<RectTransform>();
+
         // 버튼 클릭 이벤트 등록
         _button.onClick.AddListener(() => OnNumberButtonClicked?.Invoke(this));
     }
