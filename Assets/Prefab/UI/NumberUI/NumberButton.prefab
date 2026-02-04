@@ -77,7 +77,15 @@ PrefabInstance:
       value: ActionButton
       objectReference: {fileID: 0}
     - target: {fileID: 2527449126712460529, guid: 9a033a0f7e69daf44addc2026c29269c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2527449126712460529, guid: 9a033a0f7e69daf44addc2026c29269c, type: 3}
       propertyPath: _pointerClickSFXType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2527449126712460529, guid: 9a033a0f7e69daf44addc2026c29269c, type: 3}
+      propertyPath: _pointerEnterSFXType
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4393266232376785310, guid: 9a033a0f7e69daf44addc2026c29269c, type: 3}
