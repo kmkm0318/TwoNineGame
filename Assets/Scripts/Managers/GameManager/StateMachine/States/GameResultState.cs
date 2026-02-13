@@ -36,6 +36,9 @@ public class GameResultState : GameBaseState
 
         // 결과 UI 표시
         _resultPresenter.Show();
+
+        // BGM 재생
+        AudioManager.Instance.PlayBGM(BGMType.Result);
     }
 
     public override void OnExit()

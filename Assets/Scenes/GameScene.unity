@@ -4415,11 +4415,11 @@ MonoBehaviour:
   _bgmClips:
     items:
     - Key: 1
-      Value: {fileID: 0}
+      Value: {fileID: 8300000, guid: d9a7db165c7ceb84cb835f898659330d, type: 3}
     - Key: 2
       Value: {fileID: 8300000, guid: d9a7db165c7ceb84cb835f898659330d, type: 3}
     - Key: 3
-      Value: {fileID: 0}
+      Value: {fileID: 8300000, guid: d9a7db165c7ceb84cb835f898659330d, type: 3}
   _sfxClips:
     items:
     - Key: 1
