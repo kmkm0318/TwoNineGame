@@ -6,12 +6,7 @@ using System;
 [Serializable]
 public class UserData
 {
-    public string UserName;
-    public int BestScore;
-
-    public UserData()
-    {
-        UserName = "Unknown";
-        BestScore = 0;
-    }
+    public string UserName = "Unknown";
+    public int BestScore = 0;
+    public bool IsTutorialCompleted = false;
 }

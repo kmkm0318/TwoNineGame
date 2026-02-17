@@ -96,5 +96,14 @@ public class UserDataManager : MonoBehaviour
         // 변경된 데이터 저장
         SaveUserdata();
     }
+
+    public void SetTutorialCompleted(bool isCompleted)
+    {
+        // 튜토리얼 완료 여부 변경
+        UserData.IsTutorialCompleted = isCompleted;
+
+        // 변경된 데이터 저장
+        SaveUserdata();
+    }
     #endregion
 }

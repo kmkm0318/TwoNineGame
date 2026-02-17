@@ -45,9 +45,6 @@ public class RoundManager : MonoBehaviour
 
     public void Reset()
     {
-        // 라운드 비활성화
-        IsRoundActive = false;
-
         // 목표 점수 설정
         UpdateTargetScore(_userDataManager.UserData.BestScore);
 
@@ -71,6 +68,8 @@ public class RoundManager : MonoBehaviour
     }
 
     #region 라운드
+    public void SetRoundActive(bool isActive) => IsRoundActive = isActive;
+
     private void HandleRoundTime()
     {
         // 라운드가 활성화되어 있지 않으면 반환
@@ -105,9 +104,6 @@ public class RoundManager : MonoBehaviour
 
         // 이벤트 호출
         OnCurrentRoundTimeChanged?.Invoke(CurrentRoundTime);
-
-        // 라운드 활성화
-        IsRoundActive = true;
     }
 
     public void RoundClear()

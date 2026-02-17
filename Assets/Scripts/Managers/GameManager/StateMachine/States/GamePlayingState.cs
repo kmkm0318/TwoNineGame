@@ -19,10 +19,16 @@ public class GamePlayingState : GameBaseState
     {
         // 이벤트 구독
         RegisterEvents();
+
+        // 라운드 활성화
+        _roundManager.SetRoundActive(true);
     }
 
     public override void OnExit()
     {
+        // 라운드 비활성화
+        _roundManager.SetRoundActive(false);
+
         // 이벤트 구독 해제
         UnregisterEvents();
     }
