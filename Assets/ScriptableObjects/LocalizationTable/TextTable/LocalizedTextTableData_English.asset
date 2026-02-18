@@ -39,12 +39,12 @@ MonoBehaviour:
     - Key: UI_Retry
       Value: RETRY(AD)
     - Key: Tutorial_0
-      Value: 2!9!GAME is a fast-paced\ngame about finding\nmultiples of a target
+      Value: 2!9!GAME is a fast-paced game\nabout finding multiple\nof a target number
     - Key: Tutorial_1
-      Value: This is your target number.\nStart by finding\nmultiple of 2!
+      Value: This is your target number\nStart by finding\nmultiple of 2!
     - Key: Tutorial_2
       Value: Find the correct multiple\namong the 9 numbers\nin the center.
     - Key: Tutorial_3
       Value: Be careful!\nEach round has\na time limit.
     - Key: Tutorial_4
-      Value: 'Your score is shown here.\nTry to reach\nyour first goal: 29!'
+      Value: 'Your score is shown here\nTry to reach\nyour first goal: 29!'
