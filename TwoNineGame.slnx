@@ -1,8 +1,11 @@
 ﻿<Solution>
   <Project Path="com.rlabrecque.steamworks.net.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="Google.Play.Common.csproj" />
+  <Project Path="Google.Play.AppUpdate.csproj" />
   <Project Path="Assembly-CSharp-firstpass.csproj" />
   <Project Path="com.rlabrecque.steamworks.net.editor.csproj" />
   <Project Path="GoogleMobileAds.Editor.csproj" />
+  <Project Path="Google.Play.Core.csproj" />
   <Project Path="Assembly-CSharp-Editor-firstpass.csproj" />
 </Solution>
