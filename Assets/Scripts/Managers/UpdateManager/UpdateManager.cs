@@ -1,6 +1,11 @@
+#if UNITY_ANDROID && !UNITY_EDITOR
+#define USE_PLAY_CORE
+#endif
+
 using System.Collections;
 
-#if UNITY_ANDROID && !UNITY_EDITOR
+#if USE_PLAY_CORE
+using UnityEngine;
 using Google.Play.AppUpdate;
 #endif
 
@@ -9,7 +14,7 @@ using Google.Play.AppUpdate;
 /// </summary>
 public class UpdateManager : Singleton<UpdateManager>
 {
-#if UNITY_ANDROID && !UNITY_EDITOR
+#if USE_PLAY_CORE
     #region 변수
     private AppUpdateManager _appUpdateManager;
     #endregion
@@ -28,7 +33,7 @@ public class UpdateManager : Singleton<UpdateManager>
     /// </summary>
     public IEnumerator CheckForUpdate()
     {
-#if UNITY_ANDROID && !UNITY_EDITOR
+#if USE_PLAY_CORE
         // 업데이트 정보 요청
         var appUpdateInfo = _appUpdateManager.GetAppUpdateInfo();
 
@@ -59,6 +64,19 @@ public class UpdateManager : Singleton<UpdateManager>
 
             // 업데이트 대기
             yield return startUpdate;
+
+            // 업데이트 중지 시
+            if (startUpdate.Status == AppUpdateStatus.Failed || startUpdate.Status == AppUpdateStatus.Canceled)
+            {
+                // 업데이트 실패 또는 취소 시 앱 종료
+                $"업데이트가 실패하거나 취소되었습니다. 앱을 종료합니다.".LogError(this);
+                Application.Quit();
+            }
+            else
+            {
+                // 업데이트 성공 로그
+                $"업데이트가 성공적으로 완료되었습니다.".Log(this);
+            }
         }
         else
         {
