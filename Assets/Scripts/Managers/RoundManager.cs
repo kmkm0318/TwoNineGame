@@ -20,7 +20,7 @@ public class RoundManager : MonoBehaviour
     #endregion
 
     #region 라운드 변수
-    public bool IsRoundActive { get; set; } = false;
+    public bool IsRoundActive { get; private set; } = false;
     public int TargetScore { get; private set; } = INITIAL_TARGET_SCORE;
     public int CurrentScore { get; private set; } = 0;
     public float MaxRoundTime { get; private set; } = 0f;

@@ -13,6 +13,7 @@ public class GameStateFactory
     public GameLoadingState LoadingState { get; private set; }
     public GameRoundStartState RoundStartState { get; private set; }
     public GamePlayingState PlayingState { get; private set; }
+    public GamePauseState PauseState { get; private set; }
     public GameRoundClearState RoundClearState { get; private set; }
     public GameRoundFailState RoundFailState { get; private set; }
     public GameResultState ResultState { get; private set; }
@@ -30,6 +31,7 @@ public class GameStateFactory
         RoundStartState = new GameRoundStartState(_gameManager, _stateMachine, this);
         PlayingState = new GamePlayingState(_gameManager, _stateMachine, this);
         RoundClearState = new GameRoundClearState(_gameManager, _stateMachine, this);
+        PauseState = new GamePauseState(_gameManager, _stateMachine, this);
         RoundFailState = new GameRoundFailState(_gameManager, _stateMachine, this);
         ResultState = new GameResultState(_gameManager, _stateMachine, this);
     }

@@ -38,6 +38,8 @@ MonoBehaviour:
       Value: CLOSE
     - Key: UI_Retry
       Value: RETRY(AD)
+    - Key: UI_Resume
+      Value: RESUME
     - Key: Tutorial_0
       Value: 2!9!GAME is a fast-paced game\nabout finding multiple\nof a target number
     - Key: Tutorial_1

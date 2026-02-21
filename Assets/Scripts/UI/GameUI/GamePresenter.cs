@@ -12,6 +12,7 @@ public class GamePresenter : MonoBehaviour, IShowHide
     [SerializeField] private NumberUI _numberUI;
 
     #region 레퍼런스
+    private GameManager _gameManager;
     private RoundManager _roundManager;
     private NumberManager _numberManager;
     #endregion
@@ -23,9 +24,10 @@ public class GamePresenter : MonoBehaviour, IShowHide
     }
 
     #region 초기화
-    public void Init(RoundManager roundManager, NumberManager numberManager)
+    public void Init(GameManager gameManager, RoundManager roundManager, NumberManager numberManager)
     {
         // 레퍼런스 할당
+        _gameManager = gameManager;
         _roundManager = roundManager;
         _numberManager = numberManager;
 
@@ -52,6 +54,8 @@ public class GamePresenter : MonoBehaviour, IShowHide
     #region 이벤트 구독, 해제
     private void RegisterEvents()
     {
+        _gameUI.OnPauseButtonClicked += _gameManager.PauseGame;
+
         _roundManager.OnTargetScoreChanged += _roundUI.SetScoreMaxValue;
         _roundManager.OnCurrentScoreChanged += _roundUI.SetScoreValue;
         _roundManager.OnMaxRoundTimeChanged += _roundUI.SetRoundTimeMaxValue;
@@ -66,6 +70,8 @@ public class GamePresenter : MonoBehaviour, IShowHide
 
     private void UnregisterEvents()
     {
+        _gameUI.OnPauseButtonClicked -= _gameManager.PauseGame;
+
         _roundManager.OnTargetScoreChanged -= _roundUI.SetScoreMaxValue;
         _roundManager.OnCurrentScoreChanged -= _roundUI.SetScoreValue;
         _roundManager.OnMaxRoundTimeChanged -= _roundUI.SetRoundTimeMaxValue;
@@ -86,5 +92,6 @@ public class GamePresenter : MonoBehaviour, IShowHide
     #region Show, Hide
     public void Show(float duration = 0.5f, Action onComplete = null) => _gameUI.Show(duration, onComplete);
     public void Hide(float duration = 0.5f, Action onComplete = null) => _gameUI.Hide(duration, onComplete);
+    public void SetNumberUIActive(bool isActive) => _numberUI.gameObject.SetActive(isActive);
     #endregion
 }

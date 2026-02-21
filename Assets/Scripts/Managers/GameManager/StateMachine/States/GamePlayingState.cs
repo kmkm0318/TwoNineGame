@@ -46,6 +46,8 @@ public class GamePlayingState : GameBaseState
 
         _numberManager.OnCorrectNumberSelected += HandleOnCorrectNumberSelected;
         _numberManager.OnWrongNumberSelected += HandleOnWrongNumberSelected;
+
+        GameManager.OnPauseRequested += HandleOnApplicationPaused;
     }
 
     private void UnregisterEvents()
@@ -55,6 +57,8 @@ public class GamePlayingState : GameBaseState
 
         _numberManager.OnCorrectNumberSelected -= HandleOnCorrectNumberSelected;
         _numberManager.OnWrongNumberSelected -= HandleOnWrongNumberSelected;
+
+        GameManager.OnPauseRequested -= HandleOnApplicationPaused;
     }
     #endregion
 
@@ -81,6 +85,12 @@ public class GamePlayingState : GameBaseState
     {
         // 라운드 실패 처리
         _roundManager.RoundFail();
+    }
+
+    private void HandleOnApplicationPaused()
+    {
+        // 게임 일시정지 상태로 전환
+        StateMachine.ChangeState(Factory.PauseState);
     }
     #endregion
 }

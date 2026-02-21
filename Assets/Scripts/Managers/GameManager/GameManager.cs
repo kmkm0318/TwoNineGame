@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -26,6 +27,10 @@ public class GameManager : MonoBehaviour
 
     #region 변수
     public bool IsRetried { get; private set; } = false;
+    #endregion
+
+    #region 이벤트
+    public event Action OnPauseRequested;
     #endregion
 
     private void Start()
@@ -101,11 +106,37 @@ public class GameManager : MonoBehaviour
             _gameStateMachine.ChangeState(_gameStateFactory.RoundStartState);
         });
     }
+    public void PauseGame() => OnPauseRequested?.Invoke();
+    public void ResumeGame() => _gameStateMachine.ChangeState(_gameStateFactory.PlayingState);
     #endregion
 
+    #region 기타 함수
     /// <summary>
     /// 재시도 가능 여부 확인
     /// 재시도를 하지 않았고 보상형 광고를 보여줄 수 있을 때 가능
     /// </summary>
     public bool CanRetry() => !IsRetried && AdManager.Instance.CanShowRewardedAd();
+    #endregion
+
+    #region 게임 일시중지
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        // 앱이 일시정지 되었을 때
+        if (pauseStatus)
+        {
+            // 일시정지 이벤트 호출
+            OnPauseRequested?.Invoke();
+        }
+    }
+
+    void OnApplicationFocus(bool focus)
+    {
+        // 앱이 포커스를 잃었을 때
+        if (!focus)
+        {
+            // 일시정지 이벤트 호출
+            OnPauseRequested?.Invoke();
+        }
+    }
+    #endregion
 }

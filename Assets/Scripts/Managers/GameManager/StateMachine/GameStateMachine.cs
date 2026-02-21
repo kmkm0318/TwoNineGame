@@ -1,5 +1,3 @@
-using System;
-
 /// <summary>
 /// 게임 상태 머신
 /// </summary>
