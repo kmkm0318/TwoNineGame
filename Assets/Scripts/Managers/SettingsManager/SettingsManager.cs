@@ -69,7 +69,16 @@ public class SettingsManager : MonoBehaviour
         else
         {
             // 파일이 없으면 기본 설정 생성
-            SettingsData = new();
+            SettingsData = new()
+            {
+                // 기본 설정 생성 시 시스템 언어에 따라 초기 언어 설정
+                Language = Application.systemLanguage switch
+                {
+                    SystemLanguage.Korean => LanguageType.Korean,
+                    SystemLanguage.English => LanguageType.English,
+                    _ => LanguageType.English,
+                }
+            };
 
             // 기본 설정 저장
             SaveSettings();
