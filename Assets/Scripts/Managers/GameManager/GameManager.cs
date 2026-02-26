@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour
         // 게임 시작 상태로 전환
         _gameStateMachine.ChangeState(_gameStateFactory.LoadingState);
     }
+    public void ShowSettings() => _gameStateMachine.ChangeState(_gameStateFactory.SettingsState);
     public void ReturnToHome() => _gameStateMachine.ChangeState(_gameStateFactory.HomeState);
     public void ExitGame() => Application.Quit();
     public void RetryGame()

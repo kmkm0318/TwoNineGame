@@ -40,9 +40,9 @@ public class GameUIManager : MonoBehaviour
     {
         // 각 프리젠터 초기화
         _gamePresenter.Init(_gameManager, _gameManager.RoundManager, _gameManager.NumberManager);
-        _homePresenter.Init(_gameManager, _settingsPresenter);
+        _homePresenter.Init(_gameManager);
         _resultPresenter.Init(_gameManager);
-        _settingsPresenter.Init(_gameManager.SettingsManager);
+        _settingsPresenter.Init(_gameManager, _gameManager.SettingsManager);
         _tutorialPresenter.Init();
         _pausePresenter.Init(_gameManager);
     }

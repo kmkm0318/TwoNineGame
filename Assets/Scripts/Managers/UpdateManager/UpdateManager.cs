@@ -28,6 +28,14 @@ public class UpdateManager : Singleton<UpdateManager>
     }
 #endif
 
+#if USE_PLAY_CORE
+    private void Start()
+    {
+        // 업데이트 확인 코루틴 시작
+        StartCoroutine(CheckForUpdate());
+    }
+#endif
+
     /// <summary>
     /// 업데이트를 확인하고, 업데이트가 가능하면 즉시 업데이트를 시작하는 코루틴
     /// </summary>

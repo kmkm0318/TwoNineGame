@@ -10,6 +10,7 @@ public class SettingsPresenter : MonoBehaviour, IShowHide
     [SerializeField] private SettingsUI _settingsUI;
 
     #region 레퍼런스
+    private GameManager _gameManager;
     private SettingsManager _settingsManager;
     #endregion
 
@@ -20,9 +21,10 @@ public class SettingsPresenter : MonoBehaviour, IShowHide
     }
 
     #region 초기화
-    public void Init(SettingsManager settingsManager)
+    public void Init(GameManager gameManager, SettingsManager settingsManager)
     {
         // 레퍼런스 설정
+        _gameManager = gameManager;
         _settingsManager = settingsManager;
 
         // 이벤트 구독
@@ -53,7 +55,7 @@ public class SettingsPresenter : MonoBehaviour, IShowHide
         _settingsManager.OnLanguageChanged += _settingsUI.SetLanguage;
 
         // 설정 UI 변경 이벤트 구독
-        _settingsUI.OnCloseButtonClicked += HandleOnCloseButtonClicked;
+        _settingsUI.OnCloseButtonClicked += _gameManager.ReturnToHome;
         _settingsUI.OnBGMButtonClicked += _settingsManager.ChangeBGMVolume;
         _settingsUI.OnSFXButtonClicked += _settingsManager.ChangeSFXVolume;
         _settingsUI.OnLanguageButtonClicked += _settingsManager.ChangeLanguage;
@@ -67,15 +69,11 @@ public class SettingsPresenter : MonoBehaviour, IShowHide
         _settingsManager.OnLanguageChanged -= _settingsUI.SetLanguage;
 
         // 설정 UI 변경 이벤트 구독 해제
-        _settingsUI.OnCloseButtonClicked -= HandleOnCloseButtonClicked;
+        _settingsUI.OnCloseButtonClicked -= _gameManager.ReturnToHome;
         _settingsUI.OnBGMButtonClicked -= _settingsManager.ChangeBGMVolume;
         _settingsUI.OnSFXButtonClicked -= _settingsManager.ChangeSFXVolume;
         _settingsUI.OnLanguageButtonClicked -= _settingsManager.ChangeLanguage;
     }
-    #endregion
-
-    #region 이벤트 핸들러
-    private void HandleOnCloseButtonClicked() => Hide(0f);
     #endregion
 
     #region Show, Hide

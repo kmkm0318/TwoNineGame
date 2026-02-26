@@ -11,7 +11,6 @@ public class HomePresenter : MonoBehaviour, IShowHide
 
     #region 레퍼런스
     private GameManager _gameManager;
-    private SettingsPresenter _settingsPresenter;
     #endregion
 
     private void OnDestroy()
@@ -21,11 +20,10 @@ public class HomePresenter : MonoBehaviour, IShowHide
     }
 
     #region 초기화
-    public void Init(GameManager gameManager, SettingsPresenter settingsPresenter)
+    public void Init(GameManager gameManager)
     {
         // 레퍼런스 할당
         _gameManager = gameManager;
-        _settingsPresenter = settingsPresenter;
 
         // UI 이벤트 구독
         RegisterEvents();
@@ -43,36 +41,16 @@ public class HomePresenter : MonoBehaviour, IShowHide
     #region 이벤트 구독, 해제
     private void RegisterEvents()
     {
-        _homeUI.OnStartButtonClicked += HandleStartButtonClicked;
-        _homeUI.OnSettingsButtonClicked += HandleSettingsButtonClicked;
-        _homeUI.OnExitButtonClicked += HandleExitButtonClicked;
+        _homeUI.OnStartButtonClicked += _gameManager.StartGame;
+        _homeUI.OnSettingsButtonClicked += _gameManager.ShowSettings;
+        _homeUI.OnExitButtonClicked += _gameManager.ExitGame;
     }
 
     private void UnregisterEvents()
     {
-        _homeUI.OnStartButtonClicked -= HandleStartButtonClicked;
-        _homeUI.OnSettingsButtonClicked -= HandleSettingsButtonClicked;
-        _homeUI.OnExitButtonClicked -= HandleExitButtonClicked;
-    }
-    #endregion
-
-    #region 이벤트 핸들러
-    private void HandleStartButtonClicked()
-    {
-        // 게임 시작
-        _gameManager.StartGame();
-    }
-
-    private void HandleSettingsButtonClicked()
-    {
-        // 설정 UI 표시
-        _settingsPresenter.Show(0f);
-    }
-
-    private void HandleExitButtonClicked()
-    {
-        // 게임 종료
-        _gameManager.ExitGame();
+        _homeUI.OnStartButtonClicked -= _gameManager.StartGame;
+        _homeUI.OnSettingsButtonClicked -= _gameManager.ShowSettings;
+        _homeUI.OnExitButtonClicked -= _gameManager.ExitGame;
     }
     #endregion
 

@@ -10,6 +10,7 @@ public class GameStateFactory
 
     #region 상태
     public GameHomeState HomeState { get; private set; }
+    public GameSettingsState SettingsState { get; private set; }
     public GameLoadingState LoadingState { get; private set; }
     public GameRoundStartState RoundStartState { get; private set; }
     public GamePlayingState PlayingState { get; private set; }
@@ -27,6 +28,7 @@ public class GameStateFactory
 
         // 상태 인스턴스 생성
         HomeState = new GameHomeState(_gameManager, _stateMachine, this);
+        SettingsState = new GameSettingsState(_gameManager, _stateMachine, this);
         LoadingState = new GameLoadingState(_gameManager, _stateMachine, this);
         RoundStartState = new GameRoundStartState(_gameManager, _stateMachine, this);
         PlayingState = new GamePlayingState(_gameManager, _stateMachine, this);

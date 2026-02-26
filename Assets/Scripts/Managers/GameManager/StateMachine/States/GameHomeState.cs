@@ -20,9 +20,6 @@ public class GameHomeState : GameBaseState
 
         // 홈 UI 즉시 표시
         _homePresenter.Show(0f);
-
-        // 업데이트 확인 코루틴 시작
-        GameManager.StartCoroutine(UpdateManager.Instance.CheckForUpdate());
     }
 
     public override void OnExit()
