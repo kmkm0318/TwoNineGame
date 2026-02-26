@@ -1,9 +1,12 @@
+using System;
+
 /// <summary>
 /// 게임 플레이 상태
 /// </summary>
 public class GamePlayingState : GameBaseState
 {
     #region 레퍼런스
+    private InputManager _inputManager;
     private RoundManager _roundManager;
     private NumberManager _numberManager;
     #endregion
@@ -11,6 +14,7 @@ public class GamePlayingState : GameBaseState
     public GamePlayingState(GameManager gameManager, GameStateMachine stateMachine, GameStateFactory factory) : base(gameManager, stateMachine, factory)
     {
         // 레퍼런스 설정
+        _inputManager = InputManager.Instance;
         _roundManager = gameManager.RoundManager;
         _numberManager = gameManager.NumberManager;
     }
@@ -41,6 +45,8 @@ public class GamePlayingState : GameBaseState
     #region 이벤트 구독, 해제
     private void RegisterEvents()
     {
+        _inputManager.DefaultInput.Player.Back.performed += HandleOnBackPerformed;
+
         _roundManager.OnRoundCleared += HandleOnRoundCleared;
         _roundManager.OnRoundFailed += HandleOnRoundFailed;
 
@@ -52,6 +58,8 @@ public class GamePlayingState : GameBaseState
 
     private void UnregisterEvents()
     {
+        _inputManager.DefaultInput.Player.Back.performed -= HandleOnBackPerformed;
+
         _roundManager.OnRoundCleared -= HandleOnRoundCleared;
         _roundManager.OnRoundFailed -= HandleOnRoundFailed;
 
@@ -63,6 +71,12 @@ public class GamePlayingState : GameBaseState
     #endregion
 
     #region 이벤트 핸들러
+    private void HandleOnBackPerformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        // 게임 일시정지 상태로 전환
+        StateMachine.ChangeState(Factory.PauseState);
+    }
+
     private void HandleOnRoundCleared()
     {
         // 라운드 클리어 상태로 전환
