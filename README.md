@@ -2,18 +2,6 @@
 
 ## 게임 설명
 
-![0.jpg](Assets/Sprites/Images/1.jpg)
-
-![2.jpg](Assets/Sprites/Images/2.jpg)
-
-![1.jpg](Assets/Sprites/Images/3.jpg)
-
-![3.jpg](Assets/Sprites/Images/4.jpg)
-
-![5.jpg](Assets/Sprites/Images/5.jpg)
-
-![4.jpg](Assets/Sprites/Images/6.jpg)
-
 2!9!GAME은 빠른 시간 안에 9개의 숫자 중 목표 숫자의 배수를 찾아내고 더욱 어려운 라운드를 끝없이 진행하는 캐주얼 아케이드 모바일 게임입니다.
 
 ---
@@ -21,6 +9,28 @@
 ## 플레이 영상
 
 [![Video Label](http://img.youtube.com/vi/2KPtFfziiCk/0.jpg)](https://youtu.be/2KPtFfziiCk?t=0s)
+
+---
+
+## 게임 진행 순서
+
+![image.jpg](Assets/Sprites/Images/1.jpg)
+현재 Google Play에서 비공개 테스트를 진행 중입니다. Google Play를 통해 게임을 설치할 수 있습니다.
+
+![image.jpg](Assets/Sprites/Images/2.jpg)
+게임을 시작하면 보이는 메인 화면입니다. 게임 시작, 설정, 나가기가 가능합니다.
+
+![image.jpg](Assets/Sprites/Images/3.jpg)
+설정 화면입니다. BGM, SFX 등의 소리 설정과 언어 설정이 가능합니다. 언어 설정을 통해 게임 내 언어를 즉시 변경 가능합니다. 초기 언어는 시스템 기본 언어에 따라 한국어 혹은 영어로 설정되어 있습니다.
+
+![image.jpg](Assets/Sprites/Images/4.jpg)
+게임 시작 시 보이는 화면입니다. 중앙에는 9개의 숫자가 있고 위에는 목표 숫자가 있습니다. 9개의 숫자 중 목표 숫자의 배수를 찾아 터치하면 성공입니다. 틀린 숫자를 터치하거나 하단에 보이는 제한 시간이 지난다면 실패입니다.
+
+![image.jpg](Assets/Sprites/Images/5.jpg)
+중앙 숫자를 클릭했을 때 입니다. 옳은 숫자의 배경은 녹색, 틀린 숫자의 배경은 빨간 색으로 정답을 알려줍니다. 숫자를 눌렀을 때 소인수 분해된 결과가 이펙트로 나타납니다.
+
+![image.jpg](Assets/Sprites/Images/6.jpg)
+라운드를 실패했을 경우입니다. 최종 점수를 알려주고 첫 실패에 한해 광고를 보고 재시도가 가능합니다. 처음부터 다시 시작하거나 메인 화면으로 나가기도 가능합니다.
 
 ---
 
