@@ -5171,7 +5171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3967cb64a2dd38647bd17bf982200dfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AdManager
-  _adData: {fileID: 11400000, guid: 95cbb7131e225f44da8be7e5b4f02e5b, type: 2}
+  _adData: {fileID: 11400000, guid: 42e1ab76cd93a244cb01a8d1a01a9782, type: 2}
 --- !u!4 &959694106
 Transform:
   m_ObjectHideFlags: 0
