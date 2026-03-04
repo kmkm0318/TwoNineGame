@@ -9,8 +9,12 @@ public class ResultPresenter : MonoBehaviour, IShowHide
     [Header("UI References")]
     [SerializeField] private ResultUI _resultUI;
 
+    [Header("Confirm Text")]
+    [SerializeField] private string _retryConfirmKey = "UI_RetryConfirm";
+
     #region 레퍼런스
     private GameManager _gameManager;
+    private ConfirmPresenter _confirmPresenter;
     #endregion
 
     private void OnDestroy()
@@ -20,10 +24,11 @@ public class ResultPresenter : MonoBehaviour, IShowHide
     }
 
     #region 초기화
-    public void Init(GameManager gameManager)
+    public void Init(GameManager gameManager, ConfirmPresenter confirmPresenter)
     {
         // 레퍼런스 할당
         _gameManager = gameManager;
+        _confirmPresenter = confirmPresenter;
 
         // 이벤트 구독
         RegisterEvents();
@@ -42,16 +47,27 @@ public class ResultPresenter : MonoBehaviour, IShowHide
     #region 이벤트 구독, 해제
     private void RegisterEvents()
     {
-        _resultUI.OnRetryButtonClicked += _gameManager.RetryGame;
+        _resultUI.OnRetryButtonClicked += HandleOnRetryButtonClicked;
         _resultUI.OnRestartButtonClicked += _gameManager.StartGame;
         _resultUI.OnExitButtonClicked += _gameManager.ReturnToHome;
     }
 
     private void UnregisterEvents()
     {
-        _resultUI.OnRetryButtonClicked -= _gameManager.RetryGame;
+        _resultUI.OnRetryButtonClicked -= HandleOnRetryButtonClicked;
         _resultUI.OnRestartButtonClicked -= _gameManager.StartGame;
         _resultUI.OnExitButtonClicked -= _gameManager.ReturnToHome;
+    }
+    #endregion
+
+    #region 이벤트 핸들러
+    private void HandleOnRetryButtonClicked()
+    {
+        // 재시도 확인 메시지 가져오기
+        var message = LocalizationManager.Instance.GetLocalizedText(_retryConfirmKey);
+
+        // 재시도 확인 UI 표시
+        _confirmPresenter.Show(message, _gameManager.RetryGame);
     }
     #endregion
 

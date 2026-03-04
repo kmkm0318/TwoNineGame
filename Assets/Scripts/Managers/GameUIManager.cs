@@ -13,13 +13,14 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private SettingsPresenter _settingsPresenter;
     [SerializeField] private TutorialPresenter _tutorialPresenter;
     [SerializeField] private PausePresenter _pausePresenter;
+    [SerializeField] private ConfirmPresenter _confirmPresenter;
     public GamePresenter GamePresenter => _gamePresenter;
     public HomePresenter HomePresenter => _homePresenter;
     public ResultPresenter ResultPresenter => _resultPresenter;
     public SettingsPresenter SettingsPresenter => _settingsPresenter;
     public TutorialPresenter TutorialPresenter => _tutorialPresenter;
-
     public PausePresenter PausePresenter => _pausePresenter;
+    public ConfirmPresenter ConfirmPresenter => _confirmPresenter;
     #endregion
 
     #region 레퍼런스
@@ -41,10 +42,11 @@ public class GameUIManager : MonoBehaviour
         // 각 프리젠터 초기화
         _gamePresenter.Init(_gameManager, _gameManager.RoundManager, _gameManager.NumberManager);
         _homePresenter.Init(_gameManager);
-        _resultPresenter.Init(_gameManager);
+        _resultPresenter.Init(_gameManager, _confirmPresenter);
         _settingsPresenter.Init(_gameManager, _gameManager.SettingsManager);
         _tutorialPresenter.Init();
         _pausePresenter.Init(_gameManager);
+        _confirmPresenter.Init();
     }
     #endregion
 }

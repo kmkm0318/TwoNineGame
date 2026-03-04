@@ -50,3 +50,9 @@ MonoBehaviour:
       Value: Be careful!\nEach round has\na time limit.
     - Key: Tutorial_4
       Value: 'Your score is shown here\nTry to reach\nyour first goal: 29!'
+    - Key: UI_RetryConfirm
+      Value: Watch the Ad and\nTry Again?
+    - Key: UI_Confirm
+      Value: CONFIRM
+    - Key: UI_Cancel
+      Value: CANCEL
