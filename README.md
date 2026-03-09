@@ -15,7 +15,7 @@
 ## 게임 진행 순서
 
 ![image.jpg](Assets/Sprites/Images/1.jpg)
-현재 Google Play에서 비공개 테스트를 진행 중입니다. Google Play를 통해 게임을 설치할 수 있습니다.
+현재 Google Play에 출시되었습니다. Google Play를 통해 게임을 설치 및 플레이할 수 있습니다.
 
 ![image.jpg](Assets/Sprites/Images/2.jpg)
 게임을 시작하면 보이는 메인 화면입니다. 게임 시작, 설정, 나가기가 가능합니다.
